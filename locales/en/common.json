@@ -1,0 +1,251 @@
+{
+    "login": {
+        "loginBtn": "Login",
+        "registerBtn": "Register",
+        "enterEmail": "Email",
+        "enterEmailPlaceholder": "Enter your email here",
+        "enterValidEmail": "Must enter a valid email",
+        "enterPassword": "Password",
+        "enterPasswordPlaceholder": "Enter your password here",
+        "enterPasswordError": "Must enter a valid password",
+        "forgotPassword": "¿Did you forget your password?",
+        "cancelButton": "Cancel",
+        "accessButton": "Login",
+        "welcomeMessage": "Welcome",
+        "recoverPassword": "I forgot my password",
+        "copyright": "SYSTEM MAQUINARIA"
+    },
+    "recovery": {
+        "recoverTitle": "Recover password",
+        "enterEmail": "Enter your email",
+        "enterValidEmail": "Must enter a valid email",
+        "enterEmailPlaceholder": "Enter your email here",
+        "sendRecoveryEmailText": "📧 {{name}} we have sent you an email!",
+        "sendRecoveryEmailDescription": "We have sent an email to {{email}} with a link to retrieve your password."
+    },
+    "register": {
+        "registerTitle": "Request an account",
+        "registerText": "Do not have your account yet?",
+        "nameQuestion": "What is your name?",
+        "nameQuestionPlaceholder": "Enter your name here",
+        "nameQuestionError": "Must enter your name",
+        "lastNameQuestion": "What is your lastname?",
+        "lastNameQuestionPlaceholder": "Enter your lastname here",
+        "lastNameQuestionError": "Must enter your lastname",
+        "emailQuestion": "What is your email?",
+        "emailQuestionPlaceholder": "Enter your email here",
+        "emailQuestionError": "Must be a valid email",
+        "enterPassword": "Enter your password",
+        "enterPasswordPlaceholder": "Enter your password here",
+        "enterPasswordError": "Password is required",
+        "forgotPassword": "¿Did you forget your password?",
+        "recoverPassword": "I forgot my password",
+        "accessButton": "Confirm",
+        "slogan": "",
+        "vendorName": "Vendor",
+        "vendorNamePlaceholder": "Select your vendor"
+    },
+    "publicHome": {
+        "navbarLinksTitle": {
+            "home": "Home",
+            "company": "Company",
+            "aboutus": "About us",
+            "team": "Team",
+            "contact": "Contact",
+            "signOut": "Sign out"
+        }
+    },
+    "profile": {
+        "profileTitle": "Profile",
+        "name": "Name",
+        "namePlaceholder": "Update your name here",
+        "lastname": "Lastname",
+        "lastnamePlaceholder": "Update your lastname here",
+        "email": "Email",
+        "emailPlaceholder": "Update your email here",
+        "updateBtn": "Update",
+        "updateSuccess": "Role updated successfully",
+        "updateError": "Error updating role",
+        "logOut": "Log out",
+        "password": "Password",
+        "passwordPlaceholder": "Update your password here",
+        "phone": "Phone",
+        "phonePlaceholder": "Update your phone here"
+    },
+    "roles": {
+        "forms": {
+            "name": "Name",
+            "routes": "Routes",
+            "creationSuccess": "Role created successfully",
+            "deleteSuccess": "Role deleted successfully",
+            "updateSuccess": "Role updated successfully",
+            "createRoleTitle": "Create role",
+            "updateRoleTitle": "Update role",
+            "createRoleDescription": "Create a new role",
+            "updateRoleDescription": "Update a role",
+            "namePlaceholder": "Enter your role name here",
+            "roleRequired": "Role is required",
+            "routesPlaceholder": "Enter your routes here",
+            "routesRequired": "Routes is required"
+        },
+        "headers": {
+            "description": "Administra los roles de los usuarios",
+            "buttonLabel": "Crear rol",
+            "title": "Roles"
+        }
+    },
+    "notFound": {
+        "pageNotFoundMsg": "Page not found",
+        "goToHomeBtn": "Go to home"
+    },
+    "buttons": {
+        "create": "Create",
+        "edit": "Edit",
+        "delete": "Delete",
+        "cancel": "Cancel",
+        "save": "Save",
+        "close": "Close",
+        "eye": "Eye",
+        "print": "Print"
+    },
+    "tables": {
+        "name": "Name",
+        "options": "Options",
+        "notFoundMessage": "No results found",
+        "tryAgainMessage": "Try again"
+    },
+    "home": {
+        "title": "Home",
+        "description": "This is the home page"
+    },
+    "users": {
+        "name": "Name",
+        "lastname": "Lastname",
+        "email": "Email",
+        "password": "Password",
+        "emailAlreadyExists": "Already exists an user with this email",
+        "forms": {
+            "createTitle": "Create user",
+            "updateTitle": "Edit user",
+            "roles": "Roles",
+            "rolesPlaceholder": "Select roles",
+            "rolesRequired": "Role is required",
+            "creationSuccess": "User created successfully",
+            "updateSuccess": "User updated successfully",
+            "deleteSuccess": "User deleted Sucessfully",
+            "deleteMessage": "Are you sure you want to delete {{name}} {{lastname}}?",
+            "deleteError": "Failed to delete user {{name}} {{lastname}}",
+            "rut": "RUT",
+            "phone": "Phone",
+            "enterPhonePlaceholder": "Enter phone here",
+            "enterRutPlaceholder": "Enter rut here"
+        },
+        "headers": {
+            "title": "Users",
+            "delete": {
+                "title": "Delete User"
+            },
+            "buttonLabel": "Add user",
+            "description": "Admin users"
+        },
+        "buttons": {
+            "create": "Create",
+            "edit": "Edit",
+            "delete": "Delete"
+        }
+    },
+    "offline": {
+        "pageOfflineMsg": "You are offline, please connect to the internet"
+    },
+    "config": {
+        "title": "Site configuration",
+        "description": "Update your site configuration",
+        "buttonLabel": "Save configuration",
+        "updateVendorSuccess": "Vendor updated successfully",
+        "information": {
+            "navTitle": "Information",
+            "siteName": "Site name",
+            "siteNamePlaceholder": "Enter your site name here",
+            "siteNameError": "Site name is required",
+            "phone": "Phone",
+            "phonePlaceholder": "Enter your site phone here",
+            "email": "Email",
+            "emailPlaceholder": "Enter your site email here",
+            "description": "Description",
+            "descriptionPlaceholder": "Enter your site description here",
+            "domains": "Domains"
+        },
+        "banners": {
+            "navTitle": "Banners",
+            "title": "Enter your banners here"
+        },
+        "extra": {
+            "navTitle": "Extra",
+            "address": "Address",
+            "addressPlaceholder": "Enter your site address here",
+            "primaryColorTitle": "Enter your site primary color here"
+        },
+        "seo": {
+            "navTitle": "SEO",
+            "seoTitle": "Enter your site SEO here",
+            "thumbnail": "Thumbnail",
+            "description": "Description",
+            "descriptionPlaceholder": "Enter your site description here",
+            "url": "URL",
+            "urlPlaceholder": "Enter your site URL here"
+        }
+    },
+    "uploader": {
+        "grab": "Grab",
+        "imagesMsg": "your images here",
+        "imageMsg": "your image here",
+        "title": "Title",
+        "description": "Description",
+        "buttonText": "Button text"
+    },
+    "site": {
+        "title": "Movimiento Maquinaria",
+        "description": "Boilerplate hecho con 💖"
+    },
+    "vendors": {
+        "name": "Name",
+        "vendorExists": "Vendor already exists",
+        "createdAt": "Created at",
+        "headers": {
+            "title": "Vendors",
+            "buttonLabel": "Add vendor",
+            "description": "Admin vendors"
+        },
+        "forms": {
+            "createTitle": "Create vendor",
+            "updateTitle": "Edit vendor",
+            "creationSuccess": "Vendor created successfully",
+            "deleteSuccess": "Vendor deleted successfully",
+            "updateSuccess": "Vendor updated successfully"
+        },
+        "updateSuccess": "Vendor updated successfully"
+    },
+    "reset": {
+        "headers": {
+            "resetTitle": "Reset password",
+            "resetDescription": "Reset your password",
+            "resetTitleSuccess": "Password reset successfully",
+            "resetDescriptionSuccess": "Now you can log in with your new password"
+        },
+        "forms": {
+            "newPassword": "Enter your new password",
+            "newPasswordPlaceholder": "Enter your new password here",
+            "newPasswordRequired": "The password is required",
+            "repeatPassword": "Repeat your password",
+            "passwordsNotMatch": "Passwords do not match",
+            "repeatPasswordPlaceholder": "Repeat your new password",
+            "repeatPasswordRequired": "You must enter a password",
+            "resetPassword": "Update password",
+            "login": "Log in",
+            "goToLogin": "Go to login"
+        }
+    },
+    "address": {
+        "searching": "Searching..."
+    }
+}

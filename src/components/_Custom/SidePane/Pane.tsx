@@ -1,0 +1,92 @@
+import React from "react";
+import { Transition } from "react-transition-group";
+import { getTransformTransition } from "./utils";
+
+const defaultTransitionStyle = {
+  transform: "translateX(100%)",
+};
+const transitionStyles = {
+  entering: { transform: "translateX(100%)" },
+  entered: { transform: "translateX(0%)" },
+  exiting: { transform: "translateX(100%)" },
+  exited: { transform: "translateX(100%)" },
+};
+
+interface IPaneProps {
+  ariaLabel: string;
+  ariaLabelledby: string;
+  ariaDescribedBy: string;
+  autoWidth: boolean;
+  children: string;
+  className: string;
+  duration: number;
+  onEnter: () => void;
+  onEntered: () => void;
+  onExited: () => void;
+  onExiting: () => void;
+  open: boolean;
+  style: React.CSSProperties;
+  translateValue: string | number;
+  width: number;
+}
+const Pane = React.forwardRef((props: IPaneProps, ref) => {
+  const {
+    ariaLabel,
+    ariaLabelledby,
+    ariaDescribedBy,
+    autoWidth,
+    children,
+    className,
+    duration,
+    onEnter,
+    onEntered,
+    onExited,
+    onExiting,
+    open,
+    style,
+    translateValue,
+    width,
+  } = props;
+  const dynamicTransitionStyles = {
+    ...transitionStyles,
+    entered: {
+      transform: `translateX(+100%) translateX(-${translateValue}vw)`,
+    },
+  };
+  return (
+    <Transition
+      mountOnEnter
+      in={open}
+      timeout={{ appear: 0, enter: 0, exit: duration }}
+      onEnter={onEnter}
+      onEntered={onEntered}
+      onExited={onExited}
+      onExiting={onExiting}
+    >
+      {(state) => (
+        <div
+          ref={ref as React.RefObject<HTMLDivElement>}
+          aria-describedby={ariaDescribedBy || null}
+          aria-label={ariaLabel || "side pane"}
+          aria-labelledby={ariaLabelledby || null}
+          aria-modal="true"
+          className={`sidePane__pane ${className}`}
+          role="dialog"
+          style={{
+            ...defaultTransitionStyle,
+            ...dynamicTransitionStyles[state],
+            ...getTransformTransition(duration),
+            ...style,
+            width: autoWidth ? "auto" : `${Math.min(width, 100)}%`,
+          }}
+        >
+          {children}
+        </div>
+      )}
+    </Transition>
+  );
+});
+
+Pane.displayName = "Pane";
+
+export default Pane;

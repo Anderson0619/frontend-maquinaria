@@ -1,0 +1,253 @@
+{
+    "login": {
+        "loginBtn": "Iniciar sesión",
+        "registerBtn": "Registrate",
+        "enterEmail": "Correo electrónico",
+        "enterEmailPlaceholder": "Ingresa aquí tu email",
+        "enterValidEmail": "Debes ingresar un e-mail válido",
+        "enterPassword": "Constraseña",
+        "enterPasswordPlaceholder": "Ingresa aquí tu contraseña",
+        "enterPasswordError": "Debes ingresar una contraseña",
+        "forgotPassword": "¿Olvidate tu contraseña?",
+        "recoverPassword": "Olvidé mi contraseña",
+        "cancelButton": "Cancelar",
+        "accessButton": "Ingresar",
+        "welcomeMessage": "Bienvenido",
+        "copyright": "SISTEMA MAQUINARIA"
+    },
+    "recovery": {
+        "recoverTitle": "Recuperar contraseña",
+        "enterEmail": "Ingresa tu correo",
+        "enterPasswordPlaceholder": "Ingresa tu contraseña aquí",
+        "enterEmailPlaceholder": "Ingresa tu correo aquí",
+        "sendRecoveryEmailText": "📧 {{name}} te enviamos un correo!",
+        "sendRecoveryEmailDescription": "El correo fue enviado a {{email}} con un enlace para recuperar tu contraseña."
+    },
+    "register": {
+        "registerTitle": "Solicitar cuenta",
+        "registerText": "¿Aún no tienes tu cuenta?",
+        "nameQuestion": "¿Cuál es tu nombre?",
+        "nameQuestionPlaceholder": "Ingrese aquí tu nombre",
+        "nameQuestionError": "El nombre es requerido",
+        "lastNameQuestion": "¿Cuál es tu apellido?",
+        "lastNameQuestionPlaceholder": "Ingresa tu apellido",
+        "lastNameQuestionError": "El apellido es requerido",
+        "emailQuestion": "¿Cuál es tu e-mail?",
+        "emailQuestionPlaceholder": "Ingresa aquí tu correo electrónico",
+        "emailQuestionError": "Ingresa un correo válido",
+        "enterPassword": "Ingresa tu contraseña",
+        "enterPasswordPlaceholder": "Ingresa aquí tu contraseña",
+        "enterPasswordError": "El password es requerido",
+        "forgotPassword": "¿Has olvidado to contraseña?",
+        "recoverPassword": "Recupérala aquí",
+        "accessButton": "Confirmar",
+        "slogan": "",
+        "vendorName": "Selecciona empresa",
+        "vendorNamePlaceholder": "Selecciona una empresa"
+    },
+    "publicHome": {
+        "navbarLinksTitle": {
+            "home": "Inicio",
+            "company": "Empresa",
+            "aboutus": "Acerca de",
+            "team": "Equipo",
+            "contact": "Contacto",
+            "signOut": "Cerrar sesión",
+            "loginBtn": "Iniciar sesión",
+            "copyright": "SISTEMA "
+        }
+    },
+    "profile": {
+        "profileTitle": "Perfil",
+        "name": "Nombre",
+        "namePlaceholder": "Actualiza tu nombre aquí",
+        "lastname": "Apellido",
+        "lastnamePlaceholder": "Actualiza tu apellido aquí",
+        "email": "Correo",
+        "emailPlaceholder": "Actualiza tu correo aquí",
+        "updateBtn": "Actualizar datos",
+        "updateSuccess": "Datos actualizados correctamente",
+        "updateError": "Error al actualizar los datos",
+        "logOut": "Cerrar sesión",
+        "password": "Contraseña",
+        "passwordPlaceholder": "Actualiza tu contraseña aquí",
+        "phone": "Teléfono",
+        "phonePlaceholder": "Actualiza tu teléfono aquí"
+    },
+    "roles": {
+        "forms": {
+            "name": "Nombre del rol",
+            "routes": "Rutas",
+            "creationSuccess": "Rol creado con éxito",
+            "deleteSuccess": "Rol eliminado con éxito",
+            "updateSuccess": "Rol actualizado con éxito",
+            "createRoleTitle": "Crear rol",
+            "updateRoleTitle": "Actualizar rol",
+            "createRoleDescription": "Crear un rol",
+            "updateRoleDescription": "Actualizar un rol",
+            "namePlaceholder": "Ingresa el nombre del rol",
+            "roleRequired": "El rol es requerido",
+            "routesPlaceholder": "Ingresa las rutas separadas por comas",
+            "routesRequired": "Las rutas son requeridas"
+        },
+        "headers": {
+            "description": "Administra los roles de los usuarios",
+            "buttonLabel": "Crear rol",
+            "title": "Roles"
+        }
+    },
+    "notFound": {
+        "pageNotFoundMsg": "Página no encontrada",
+        "goToHomeBtn": "Volver a la página principal"
+    },
+    "buttons": {
+        "create": "Crear",
+        "edit": "Editar",
+        "delete": "Eliminar",
+        "cancel": "Cancelar",
+        "save": "Guardar",
+        "close": "Cerrar",
+        "eye": "Ver",
+        "print": "Imprimir"
+    },
+    "tables": {
+        "name": "Nombre",
+        "options": "Opciones",
+        "notFoundMessage": "No se encontraron resultados",
+        "tryAgainMessage": "Inténtelo de nuevo"
+    },
+    "home": {
+        "title": "Inicio",
+        "description": "Esta es la página de inicio"
+    },
+    "users": {
+        "name": "Nombre",
+        "lastname": "Apellido",
+        "email": "Email",
+        "password": "Contraseña",
+        "emailAlreadyExists": "Ya existe un usuario con ese correo",
+        "forms": {
+            "createTitle": "Crear Usuario",
+            "updateTitle": "Editar usuario",
+            "creationSuccess": "Usuario creado",
+            "updateSuccess": "Usuario editado con éxito",
+            "deleteSuccess": "Usuario eliminado",
+            "deleteMessage": "¿Estás seguro de eliminar al usuario {{name}} {{lastname}}?",
+            "deleteError": "Error eliminando al usuario {{name}} {{lastname}}",
+            "rut": "RUT",
+            "phone": "Teléfono",
+            "enterPhonePlaceholder": "Ingresa el teléfono aquí",
+            "enterRutPlaceholder": "Ingresa el RUT aquí",
+            "rolesRequired": "Los roles son requeridos",
+            "roles": "Roles",
+            "rolesPlaceholder": "Seleccionar roles"
+        },
+        "headers": {
+            "title": "Usuarios",
+            "delete": {
+                "title": "Eliminar Usuario"
+            },
+            "buttonLabel": "Crear usuario",
+            "description": "Administra los usuarios"
+        },
+        "buttons": {
+            "create": "Crear",
+            "edit": "Editar",
+            "delete": "Eliminar"
+        }
+    },
+    "offline": {
+        "pageOfflineMsg": "Estas sin conexión, Por favor revisa tu conexión a internet"
+    },
+    "config": {
+        "title": "Configuración",
+        "description": "Administra la configuración de la aplicación",
+        "buttonLabel": "Actualizar configuración",
+        "updateVendorSuccess": "Empresa actualizada con éxito",
+        "information": {
+            "navTitle": "Información",
+            "siteName": "Nombre del sitio",
+            "siteNamePlaceholder": "Ingresa el nombre del sitio",
+            "siteNameError": "El nombre del sitio es requerido",
+            "phone": "Teléfono",
+            "phonePlaceholder": "Ingresa el teléfono aquí",
+            "email": "Correo",
+            "emailPlaceholder": "Ingresa el correo aquí",
+            "description": "Descripción",
+            "descriptionPlaceholder": "Ingresa la descripción aquí",
+            "domains": "Dominios"
+        },
+        "banners": {
+            "navTitle": "Banners",
+            "title": "Ingresa tus banners"
+        },
+        "extra": {
+            "navTitle": "Extra",
+            "address": "Dirección",
+            "addressPlaceholder": "Ingresa la dirección aquí",
+            "primaryColorTitle": "Ingresa el color primario de la aplicación"
+        },
+        "seo": {
+            "navTitle": "SEO",
+            "seoTitle": "Actualiza la configuración SEO",
+            "thumbnail": "Imagen de portada",
+            "description": "Descripción",
+            "descriptionPlaceholder": "Ingresa la descripción aquí",
+            "url": "Website URL",
+            "urlPlaceholder": "Ingresa la URL aquí"
+        }
+    },
+    "uploader": {
+        "grab": "Arrastra",
+        "imagesMsg": "tus imágenes aquí",
+        "imageMsg": "tu imagen aquí",
+        "title": "Título",
+        "description": "Descripción",
+        "buttonText": "Texto del botón"
+    },
+    "site": {
+        "title": "Movimiento Maquinaria",
+        "description": "SISTEMA MOVIMIENTO MAQUINARIA"
+    },
+    "vendors": {
+        "name": "Nombre",
+        "createdAt": "Creado en",
+        "vendorExists": "Ya existe un proveedor con ese nombre",
+        "headers": {
+            "title": "Empresas  ",
+            "buttonLabel": "Crear empresa",
+            "description": "Administra las empresas"
+        },
+        "forms": {
+            "createTitle": "Crear empresa",
+            "updateTitle": "Editar empresa",
+            "creationSuccess": "Empresa creada con éxito",
+            "deleteSuccess": "Empresa eliminada con éxito",
+            "updateSuccess": "Empresa actualizada con éxito"
+        },
+        "updateSuccess": "Empresa actualizada con éxito"
+    },
+    "reset": {
+        "headers": {
+            "resetTitle": "Cambiar contraseña",
+            "resetDescription": "Ingresa una nueva contraseña",
+            "resetTitleSuccess": "Contraseña cambiada con éxito",
+            "resetDescriptionSuccess": "Ahora puedes iniciar sesión con tu nueva contraseña"
+        },
+        "forms": {
+            "newPassword": "Nueva contraseña",
+            "newPasswordPlaceholder": "Ingresa tu nueva contraseña aquí",
+            "newPasswordRequired": "Nueva contraseña es requerida",
+            "repeatPassword": "Repetir contraseña",
+            "passwordsNotMatch": "Las contraseñas no coinciden",
+            "repeatPasswordPlaceholder": "Repite tu nueva contraseña aquí",
+            "repeatPasswordRequired": "Repetir contraseña es requerida",
+            "resetPassword": "Cambiar contraseña",
+            "login": "Iniciar sesión",
+            "goToLogin": "Ir a iniciar sesión"
+        }
+    },
+    "address": {
+        "searching": "Searching..."
+    }
+}

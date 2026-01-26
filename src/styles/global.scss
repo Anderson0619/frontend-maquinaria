@@ -1,0 +1,42 @@
+@import "~swiper/css";
+@import "~swiper/css/navigation";
+@import "~swiper/css/pagination";
+@import "~swiper/css/scrollbar";
+
+body,
+#__next,
+html {
+  height: 100vh;
+  height: -webkit-fill-available;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+.SidePane_sidePane__2RWR- {
+  z-index: 7 !important;
+}
+
+body{
+  margin:0;
+  padding: 0;
+}
+
+.contact {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.address {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  line-height: 12px;
+  font-size: 15px;
+  margin-top: -10px;
+}
+

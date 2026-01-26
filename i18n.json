@@ -1,0 +1,8 @@
+{
+  "logBuild": false,
+  "locales": ["es", "en"],
+  "defaultLocale": "es",
+  "pages": {
+    "*": ["common", "menu", "error"]
+  }
+}

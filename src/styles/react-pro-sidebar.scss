@@ -1,0 +1,25 @@
+:root,
+.rs-theme-light {
+  $sidebar-bg-color: var(--rs-gray-100);
+  $submenu-bg-color: var(--rs-gray-100) !default;
+  $submenu-bg-color-collapsed: var(--rs-gray-100) !default;
+  $icon-bg-color: var(--rs-gray-100) !default;
+  $breakpoint-xxl: 2800px !default;
+  $sidebar-color: #000 !default;
+  $highlight-color: #000 !default;
+
+  @import "~react-pro-sidebar/dist/scss/styles.scss";
+}
+
+.rs-theme-dark {
+  $sidebar-bg-color: var(--rs-gray-900);
+  $submenu-bg-color: var(--rs-gray-800) !default;
+  $submenu-bg-color-collapsed: var(--rs-gray-800) !default;
+  $icon-bg-color: var(--rs-gray-800) !default;
+  $breakpoint-xxl: 2800px !default;
+  @import "~react-pro-sidebar/dist/scss/styles.scss";
+}
+
+.pro-sidebar {
+  z-index: 7 !important;
+}
