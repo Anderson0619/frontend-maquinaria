@@ -8,6 +8,9 @@ export interface ICreateMaquinariaInput {
     model?: string;
     anio?: string;
     description?: string;
+    estado?: string;
+    location?: string;
+    detalle?: string;
 }
    
 export interface ICreateMaquinariaResponse {
@@ -24,6 +27,9 @@ const CREATE_MAQUINARIA = gql`
             model
             anio
             description
+            estado
+            location
+            detalle
             createdAt
         }
     }
@@ -47,6 +53,9 @@ const UPDATE_MAQUINARIA = gql`
             model
             anio
             description
+            estado
+            location
+            detalle
             createdAt
         }
     }

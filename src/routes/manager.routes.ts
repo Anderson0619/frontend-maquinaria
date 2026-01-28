@@ -22,6 +22,8 @@ export const MAIN_MENU_LISTS: IRoutePath[] = [
   { route: ERoutePath.PROFILE, childrens: [], displayName: "Profile" },
   { route: ERoutePath.MAQUINARIA, childrens: [], displayName: "Maquinaria" },
   { route: ERoutePath.UBICACION, childrens: [], displayName: "Ubicación" },
+  { route: ERoutePath.MOVIMIENTO, childrens: [], displayName: "Movimiento" },
+  { route: ERoutePath.DASHBOARD, childrens: [], displayName: "Dashboard" },
   {
     displayName: "Config",
     icon: "site_config",

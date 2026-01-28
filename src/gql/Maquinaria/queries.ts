@@ -15,6 +15,9 @@ const GET_MAQUINARIA = gql `
             model
             anio
             description
+            estado
+            location
+            detalle
             createdAt
         }
     }

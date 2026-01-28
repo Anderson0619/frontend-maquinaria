@@ -8,6 +8,9 @@ export interface IMaquinaria extends IBase {
     model?: string;
     anio?: string;
     description?: string;
+    estado?: string;
+    location?: string;
+    detalle?: string;
     logo?: null | { url: string};
     user: IUser;
 }

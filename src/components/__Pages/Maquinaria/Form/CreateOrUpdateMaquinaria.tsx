@@ -1,13 +1,14 @@
 import { useMutation, useQuery } from "@apollo/client";
 import Header from "components/_Custom/Header/Header";
 import { useDrawer } from "context/drawer/drawer.provider";
-import { gqlMaquinaria } from "gql";
+import { gqlMaquinaria, gqlUbicacion } from "gql";
 import { ICreateMaquinariaInput, ICreateMaquinariaResponse, IUpdateMaquinariaInput } from "gql/Maquinaria/mutations";
 import { Controller, useForm } from "react-hook-form";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { Button, Col, Input, Row, SelectPicker, Panel, Form, InputGroup, Loader, Message, Tag } from "rsuite";
 import { IMaquinaria } from "types/Maquinaria.type";
+import { IUbicacion } from "types/Ubicacion.type";
 import { useProfile } from "context/profile/profile.context";
 
 interface IEditMaquinariaProps {
@@ -21,6 +22,7 @@ const CreateOrUpdateMaquinaria = ({ maquinaria }: IEditMaquinariaProps) => {
 
     const [selectedValue, setSelectedValue] = useState("");
     const [firstUserToClick, setFirstUserToClick] = useState<string | null>(null);
+    
 
     const handleSelectChange = (value: string) => {
         setSelectedValue(value);
@@ -30,6 +32,13 @@ const CreateOrUpdateMaquinaria = ({ maquinaria }: IEditMaquinariaProps) => {
     };
 
     const { data, loading, refetch } = useQuery(gqlMaquinaria.queries.GET_MAQUINARIA);
+
+    const { data: ubicacionesData } = useQuery<{ ubicaciones: IUbicacion[] }>(
+        gqlUbicacion.queries.GET_UBICACIONES,
+        {
+            fetchPolicy: "network-only"
+        }
+    );
 
     const [createMaquinaria, { loading: createMaquinariaLoading }] = 
         useMutation<ICreateMaquinariaResponse>(gqlMaquinaria.mutations.CREATE_MAQUINARIA, {
@@ -106,6 +115,7 @@ const CreateOrUpdateMaquinaria = ({ maquinaria }: IEditMaquinariaProps) => {
     const {
         control, 
         handleSubmit, 
+        setValue,
         formState: { errors, isDirty },
     } = useForm<ICreateMaquinariaInput>({
         defaultValues: {
@@ -114,6 +124,9 @@ const CreateOrUpdateMaquinaria = ({ maquinaria }: IEditMaquinariaProps) => {
             mark: maquinaria?.mark || "",
             model: maquinaria?.model || "",
             anio: maquinaria?.anio || "",
+            estado: maquinaria?.estado || "",
+            location: maquinaria?.location || "",
+            detalle: maquinaria?.detalle || "",
             description: maquinaria?.description || "",
         },
         mode: "onChange"
@@ -123,6 +136,22 @@ const CreateOrUpdateMaquinaria = ({ maquinaria }: IEditMaquinariaProps) => {
         event.preventDefault();
         handleSubmit(handleCreateOrUpdateMaquinaria)();
     };
+
+    const [selectedMaquinaria, setSelectedMaquinaria] = useState<string | null>(
+        maquinaria?.location || null
+    );
+
+    const handleMaquinariaChange = (value: string | null) => {
+        setSelectedMaquinaria(value);
+        setValue("location", value ? value : '');
+    };
+
+    const ubicacionOptions = [
+        { label: "Obra", value: "1", color: "bg-orange-100 text-orange-800" },
+        { label: "Alquiler", value: "2", color: "bg-blue-100 text-blue-800" },
+        { label: "Campamento", value: "3", color: "bg-cyan-100 text-cyan-800" },
+        { label: "Taller", value: "4", color: "bg-red-100 text-red-800" },
+    ];
 
     const tipoOptions = [
         { label: "Volqueta", value: "1", color: "bg-orange-100 text-orange-800" },
@@ -134,6 +163,11 @@ const CreateOrUpdateMaquinaria = ({ maquinaria }: IEditMaquinariaProps) => {
         { label: "Bulldozer", value: "7", color: "bg-yellow-100 text-yellow-800" },
         { label: "Grúa", value: "8", color: "bg-gray-100 text-gray-800" },
         { label: "Pavimentadora", value: "9", color: "bg-pink-100 text-pink-800" },
+    ];
+
+    const estadoOptions = [
+        { label: "Activo", value: "1", color: "bg-green-100 text-green-800" },
+        { label: "Inactivo", value: "2", color: "bg-red-100 text-red-800" },
     ];
 
     return (
@@ -175,7 +209,7 @@ const CreateOrUpdateMaquinaria = ({ maquinaria }: IEditMaquinariaProps) => {
                         
                         <Row gutter={16}>
                             {/* Tipo de Maquinaria */}
-                            <Col xs={24} md={12}>
+                            <Col xs={24} md={8}>
                                 <div className="mb-4">
                                     <label className="font-bold text-gray-700 mb-2 block">
                                         Tipo de Maquinaria *
@@ -193,7 +227,7 @@ const CreateOrUpdateMaquinaria = ({ maquinaria }: IEditMaquinariaProps) => {
                                                             {opt.label}
                                                         </span>
                                                     ),
-                                                    value: opt.value
+                                                    value: opt.label
                                                 }))}
                                                 block
                                                 searchable={false}
@@ -204,7 +238,93 @@ const CreateOrUpdateMaquinaria = ({ maquinaria }: IEditMaquinariaProps) => {
                                                     const selectedOption = tipoOptions.find(opt => opt.value === value);
                                                     return (
                                                         <span className={`px-3 py-1 rounded ${selectedOption?.color} font-medium`}>
-                                                            {selectedOption?.label || "Seleccionar"}
+                                                            {value || "Seleccionar"}
+                                                        </span>
+                                                    );
+                                                }}
+                                            />
+                                        )}
+                                    />
+                                    {errors.type && (
+                                        <div className="mt-2 text-red-600 text-sm bg-red-50 p-2 rounded-lg">
+                                            {errors.type.message}
+                                        </div>
+                                    )}
+                                </div>
+                            </Col>
+                            <Col xs={24} md={8}>
+                                <div className="mb-4">
+                                    <label className="font-bold text-gray-700 mb-2 block">
+                                        Ubicación *
+                                    </label>
+                                    <Controller
+                                        name="location"
+                                        control={control}
+                                        rules={{ required: false }}
+                                        render={({ field }) => (
+                                            <SelectPicker
+                                                {...field}
+                                                data={ubicacionOptions.map(opt => ({
+                                                    label: (
+                                                        <span className={`px-2 py-1 rounded ${opt.color} text-sm font-medium`}>
+                                                            {opt.label}
+                                                        </span>
+                                                    ),
+                                                    value: opt.label
+                                                }))}
+                                                block
+                                                searchable={false}
+                                                placeholder="Seleccione la ubicación"
+                                                menuClassName="shadow-lg border-0 rounded-lg"
+                                                className={`border-2 ${errors.location ? 'border-red-500' : 'border-gray-300'} rounded-lg hover:border-indigo-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all`}
+                                                renderValue={(value, item) => {
+                                                    const selectedOption = ubicacionOptions.find(opt => opt.value === value);
+                                                    return (
+                                                        <span className={`px-3 py-1 rounded ${selectedOption?.color} font-medium`}>
+                                                            {value || "Seleccionar"}
+                                                        </span>
+                                                    );
+                                                }}
+                                            />
+                                        )}
+                                    />
+                                    {errors.type && (
+                                        <div className="mt-2 text-red-600 text-sm bg-red-50 p-2 rounded-lg">
+                                            {errors.type.message}
+                                        </div>
+                                    )}
+                                </div>
+                            </Col>
+                            <Col xs={24} md={8}>
+                                <div className="mb-4">
+                                    <label className="font-bold text-gray-700 mb-2 block">
+                                        Estado *
+                                    </label>
+                                    <Controller
+                                        name="estado"
+                                        control={control}
+                                        rules={{ required: "Este campo es requerido" }}
+                                        render={({ field }) => (
+                                            <SelectPicker
+                                                {...field}
+                                                data={estadoOptions.map(opt => ({
+                                                    label: (
+                                                        <span className={`px-2 py-1 rounded ${opt.color} text-sm font-medium`}>
+                                                            {opt.label}
+                                                        </span>
+                                                    ),
+                                                    value: opt.label
+                                                }))}
+                                                block
+                                                searchable={false}
+                                                placeholder="Seleccione el estado"
+                                                menuClassName="shadow-lg border-0 rounded-lg"
+                                                className={`border-2 ${errors.estado ? 'border-red-500' : 'border-gray-300'} rounded-lg hover:border-indigo-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all`}
+                                                renderValue={(value, item) => {
+                                                    const selectedOption = estadoOptions.find(opt => opt.value === value);
+                                                    return (
+                                                        <span className={`px-3 py-1 rounded ${selectedOption?.color} font-medium`}>
+                                                            {value || "Seleccionar"}
                                                         </span>
                                                     );
                                                 }}
@@ -306,6 +426,35 @@ const CreateOrUpdateMaquinaria = ({ maquinaria }: IEditMaquinariaProps) => {
                                 </div>
                             </Col>
                         </Row>
+                    </div>
+
+                    <div className="p-6">
+                        <h4 className="font-bold text-gray-700 text-lg mb-6 flex items-center gap-2">
+                            <span className="bg-indigo-100 text-indigo-600 p-2 rounded-lg">📝</span>
+                            Características de la Maquinaria
+                        </h4>
+                        
+                        <div className="mb-4">
+                            <label className="font-bold text-gray-700 mb-2 block">
+                                Descripción Detallada
+                            </label>
+                            <Controller
+                                name="detalle"
+                                control={control}
+                                render={({ field }) => (
+                                    <Input 
+                                        {...field} 
+                                        as="textarea" 
+                                        rows={5} 
+                                        placeholder="Describa las características de la maquinaria..."
+                                        className="border-2 border-gray-300 rounded-lg hover:border-indigo-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all resize-none"
+                                    />
+                                )}
+                            />
+                            <p className="text-gray-500 text-sm mt-2">
+                                Incluya información relevante de la maquinaria
+                            </p>
+                        </div>
                     </div>
 
                     {/* Sección de Descripción */}

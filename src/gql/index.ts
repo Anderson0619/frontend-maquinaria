@@ -6,6 +6,7 @@ export { default as gqlUser } from "./User";
 export { default as gqlVendor } from "./Vendor";
 export { default as gqlMaquinaria } from "./Maquinaria";
 export { default as gqlUbicacion } from "./Ubicacion";
+export { default as gqlMovimiento } from "./Movimiento";
 
 
 

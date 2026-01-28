@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useQuery } from "@apollo/client";
-import { gqlMaquinaria } from "gql";
+import { gqlMaquinaria, gqlUbicacion } from "gql";
 import Header from "components/_Custom/Header/Header";
 import { Col, Loader, Row, Input, Button, Panel, Tag, Badge, SelectPicker } from "rsuite";
 import Table from "components/_Custom/Table/Table";
@@ -9,6 +9,7 @@ import useTranslation from "next-translate/useTranslation";
 import { ButtonTooltipIcon } from "components/_Custom/Button/ButtonTooltipIcon";
 import { IColumn } from "components/_Custom/Table/Table.types";
 import { IMaquinaria } from "types/Maquinaria.type";
+import { IUbicacion } from "types/Ubicacion.type";
 import { useModal } from "context/modal/modal.provider";
 import { useDrawer } from "context/drawer/drawer.provider";
 import moment from "moment";
@@ -122,7 +123,7 @@ const Maquinaria = () => {
     const columns: IColumn<IMaquinaria>[] = [
         {
             dataKey: "maquiNumber",
-            header: "# Identificación",
+            header: "# ID",
             sortable: true,
             width: 140,
             customCell: ({ rowData }) => (
@@ -142,12 +143,9 @@ const Maquinaria = () => {
                 const label = getTipoLabel(rowData.type);
                 
                 return (
-                    <Badge 
-                        className={`bg-${color}-100 text-${color}-800 border border-${color}-200 rounded-full px-3 py-1 flex items-center`}
-                    >
-                        <span className="mr-2">{icon}</span>
+                    <div className={` rounded-full px-3 py-1 flex items-center`} >
                         {label}
-                    </Badge>
+                    </div>
                 );
             },
         },
@@ -155,10 +153,18 @@ const Maquinaria = () => {
             dataKey: "mark",
             header: "Marca",
             sortable: true,
-            width: 120,
-            customCell: ({ rowData }) => (
-                <span className="font-medium">{rowData.mark || "N/A"}</span>
-            ),
+            width: 150,
+            customCell: ({ rowData }) => {
+                const color = getTipoColor(rowData.type);
+                const icon = getTipoIcon(rowData.type);
+                const label = getTipoLabel(rowData.type);
+                
+                return (
+                    <div className={`rounded-full px-3 py-1 flex items-center`} >
+                        {label}
+                    </div>
+                );
+            },
         },
         {
             dataKey: "model",
@@ -169,7 +175,40 @@ const Maquinaria = () => {
                 <span className="text-gray-600">{rowData.model || "N/A"}</span>
             ),
         },
-        {
+       {
+            dataKey: "estado",
+            header: "Estado",
+            sortable: true,
+            width: 100,
+            customCell: ({ rowData }) => {
+                const estado = rowData.estado?.toUpperCase() || "";
+                
+                let bgColor = "bg-gray-100";
+                let textColor = "text-gray-800";
+                let borderColor = "border-gray-200";
+                
+                if (estado === "ACTIVO") {
+                    bgColor = "bg-green-100";
+                    textColor = "text-green-800";
+                    borderColor = "border-green-200";
+                } else if (estado === "INACTIVO") {
+                    bgColor = "bg-red-100";
+                    textColor = "text-red-800";
+                    borderColor = "border-red-200";
+                } else if (!estado) {
+                    bgColor = "bg-gray-100";
+                    textColor = "text-gray-600";
+                    borderColor = "border-gray-300";
+                }
+                
+                return (
+                    <span className={`${bgColor} ${textColor} ${borderColor} border rounded-full px-2.5 py-1 flex items-center justify-center text-xs font-medium`}>
+                        {estado || "N/A"}
+                    </span>
+                );
+            },
+        },
+        /* {
             dataKey: "anio",
             header: "Año",
             sortable: true,
@@ -179,19 +218,9 @@ const Maquinaria = () => {
                     {rowData.anio || "N/A"}
                 </Badge>
             ),
-        },
-        {
-            dataKey: "createdAt",
-            header: "Fecha Creación",
-            sortable: true,
-            width: 140,
-            customCell: ({ rowData }) => (
-                <div className="flex flex-col">
-                    <span className="font-medium">{moment(rowData.createdAt).format("DD/MM/YYYY")}</span>
-                    <span className="text-xs text-gray-500">{moment(rowData.createdAt).format("HH:mm")}</span>
-                </div>
-            ),
-        },/* 
+        }, */
+        
+        /* 
         {
             dataKey: "description",
             header: "Descripción",
@@ -223,7 +252,7 @@ const Maquinaria = () => {
                         className="hover:bg-blue-50"
                         onClick={() => handleEditMaquinaria(rowData)}
                     />
-                    <ButtonTooltipIcon 
+                    {/* <ButtonTooltipIcon 
                         appearance="ghost"
                         color="red"
                         icon={<Icon icon="trash" />}
@@ -233,7 +262,7 @@ const Maquinaria = () => {
                         trigger="hover"
                         className="hover:bg-red-50"
                         onClick={() => handleDeleteMaquinaria(rowData)}
-                    />
+                    /> */}
                 </div>
             ),
         },
@@ -241,9 +270,8 @@ const Maquinaria = () => {
 
     const stats = {
         total: filteredData?.length || 0,
-        volquetas: filteredData?.filter(item => item.type === "1")?.length || 0,
-        excavadoras: filteredData?.filter(item => item.type === "5")?.length || 0,
-        gruas: filteredData?.filter(item => item.type === "8")?.length || 0,
+        estadoA: filteredData?.filter(item => item.estado === "Activo")?.length || 0,
+        estadoI: filteredData?.filter(item => item.estado === "Inactivo")?.length || 0,
     };
 
     return (
@@ -292,11 +320,11 @@ const Maquinaria = () => {
                         <div className="bg-gradient-to-r from-orange-50 to-amber-50 p-4 rounded-xl border border-orange-100">
                             <div className="flex items-center justify-between">
                                 <div>
-                                    <p className="text-sm text-gray-600">Volquetas</p>
-                                    <h3 className="text-2xl font-bold text-gray-800">{stats.volquetas}</h3>
+                                    <p className="text-sm text-gray-600">Activas</p>
+                                    <h3 className="text-2xl font-bold text-gray-800">{stats.estadoA}</h3>
                                 </div>
                                 <div className="bg-orange-100 p-3 rounded-full">
-                                    <span className="text-orange-600 text-xl">🚛</span>
+                                    <span className="text-orange-600 text-xl">✅</span>
                                 </div>
                             </div>
                         </div>
@@ -304,23 +332,11 @@ const Maquinaria = () => {
                         <div className="bg-gradient-to-r from-green-50 to-emerald-50 p-4 rounded-xl border border-green-100">
                             <div className="flex items-center justify-between">
                                 <div>
-                                    <p className="text-sm text-gray-600">Excavadoras</p>
-                                    <h3 className="text-2xl font-bold text-gray-800">{stats.excavadoras}</h3>
+                                    <p className="text-sm text-gray-600">Inactivas</p>
+                                    <h3 className="text-2xl font-bold text-gray-800">{stats.estadoI}</h3>
                                 </div>
                                 <div className="bg-green-100 p-3 rounded-full">
-                                    <span className="text-green-600 text-xl">🔨</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div className="bg-gradient-to-r from-gray-50 to-slate-50 p-4 rounded-xl border border-gray-100">
-                            <div className="flex items-center justify-between">
-                                <div>
-                                    <p className="text-sm text-gray-600">Grúas</p>
-                                    <h3 className="text-2xl font-bold text-gray-800">{stats.gruas}</h3>
-                                </div>
-                                <div className="bg-gray-100 p-3 rounded-full">
-                                    <span className="text-gray-600 text-xl">🏗️</span>
+                                    <span className="text-green-600 text-xl">🛑</span>
                                 </div>
                             </div>
                         </div>
@@ -338,30 +354,6 @@ const Maquinaria = () => {
                                     value={searchReport}
                                     onChange={(value) => handleSearchChange(value)}
                                     className="pl-10 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
-                                />
-                            </div>
-                        </div>
-                        
-                        <div className="w-full md:w-64">
-                            <div className="flex items-center">
-                                <span className="mr-2 text-gray-400">⚙️</span>
-                                <SelectPicker
-                                    data={tipoOptions.map(opt => ({
-                                        label: (
-                                            <div className="flex items-center">
-                                                <span className="mr-2">
-                                                    {opt.icon}
-                                                </span>
-                                                {opt.label}
-                                            </div>
-                                        ),
-                                        value: opt.value
-                                    }))}
-                                    value={filterType}
-                                    onChange={handleFilterChange}
-                                    placeholder="Filtrar por tipo"
-                                    cleanable
-                                    className="w-full"
                                 />
                             </div>
                         </div>

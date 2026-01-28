@@ -12,7 +12,8 @@ export enum ERoutePath {
   VENDORS = "VENDORS",
   MAQUINARIA = "MAQUINARIA",
   UBICACION = "UBICACION",
-  
+  MOVIMIENTO = "MOVIMIENTO",
+  DASHBOARD = "DASHBOARD",
 }
 
 export interface IRoute {
@@ -65,6 +66,18 @@ export const PRIVATE_ROUTES = {
     layout: ELayout.MANAGER,
     name: ERoutePath.UBICACION,
   },
+  [ERoutePath.MOVIMIENTO]: {
+    path: "/app/movimiento",
+    icon: "config",
+    layout: ELayout.MANAGER,
+    name: ERoutePath.MOVIMIENTO,
+  },
+  [ERoutePath.DASHBOARD]: {
+    path: "/app/dashboard",
+    icon: "dashboard",
+    layout: ELayout.MANAGER,
+    name: ERoutePath.DASHBOARD,
+  }
 };
 
 export const PUBLIC_ROUTES = {

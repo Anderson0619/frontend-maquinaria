@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useQuery } from "@apollo/client";
-import { gqlUbicacion } from "gql";
+import { gqlMovimiento } from "gql";
 import Header from "components/_Custom/Header/Header";
 import { Col, Loader, Row, Input, Button, Panel, Tag, Badge, SelectPicker } from "rsuite";
 import Table from "components/_Custom/Table/Table";
@@ -8,15 +8,15 @@ import Icon from "components/_Custom/Icon/Icon";
 import useTranslation from "next-translate/useTranslation";
 import { ButtonTooltipIcon } from "components/_Custom/Button/ButtonTooltipIcon";
 import { IColumn } from "components/_Custom/Table/Table.types";
-import { IUbicacion } from "types/Ubicacion.type";
+import { IMovimiento } from "types/Movimiento.type";
 import { useModal } from "context/modal/modal.provider";
 import { useDrawer } from "context/drawer/drawer.provider";
 import moment from "moment";
 import { useProfile } from "context/profile/profile.context";
-import CreateOrUpdateUbicacion from "./Form/CreateOrUpdateUbicacion";
-import DeleteUbicacion from "./DeleteUbicacion";
+import CreateOrUpdateMovimiento from "./Form/CreateOrUpdateMovimiento";
+import DeleteMovimiento from "./DeleteMovimiento";
 
-const Ubicacion = () => {
+const Movimiento = () => {
     const { t } = useTranslation("common");
 
     const { openDrawer } = useDrawer();
@@ -35,17 +35,22 @@ const Ubicacion = () => {
         setFilterType(value);
     };
 
-    const { data: ubicacionData, loading: ubicacionLoading, refetch } = useQuery<{
-        ubicaciones: IUbicacion[];
-    }>(gqlUbicacion.queries.GET_UBICACIONES, {
+    const { data: movimientoData, loading: movimientoLoading, refetch } = useQuery<{
+        movimientos: IMovimiento[];
+    }>(gqlMovimiento.queries.GET_MOVIMIENTO, {
         nextFetchPolicy: "network-only",
     });
 
     const tipoOptions = [
-        { label: "Tipo 1", value: "1", color: "orange", icon: "🚛" },
-        { label: "Tipo 2", value: "2", color: "blue", icon: "🏗️" },
-        { label: "Tipo 3", value: "3", color: "cyan", icon: "⚙️" },
-        { label: "Tipo 4", value: "4", color: "red", icon: "🏗️" },
+        { label: "Volqueta", value: "1", color: "orange", icon: "🚛" },
+        { label: "Minicargadora", value: "2", color: "blue", icon: "🏗️" },
+        { label: "Draga", value: "3", color: "cyan", icon: "⚙️" },
+        { label: "Aplanadora o Compactadora", value: "4", color: "red", icon: "🏗️" },
+        { label: "Excavadora", value: "5", color: "green", icon: "🔨" },
+        { label: "Retroexcavadora", value: "6", color: "purple", icon: "⚙️" },
+        { label: "Bulldozer", value: "7", color: "yellow", icon: "🏗️" },
+        { label: "Grúa", value: "8", color: "gray", icon: "🏗️" },
+        { label: "Pavimentadora", value: "9", color: "pink", icon: "🏗️" },
     ];
 
     // Función para obtener el label del tipo basado en el value
@@ -63,29 +68,29 @@ const Ubicacion = () => {
     // Función para obtener el icono del tipo
     const getTipoIcon = (value: string) => {
         const tipo = tipoOptions.find(opt => opt.value === value);
-        return tipo?.icon || "📌";
+        return tipo?.icon || "⚙️";
     };
 
-    const sortedOrdens = ubicacionData?.ubicaciones?.slice().sort((a, b) =>
+    const sortedMovimientos = movimientoData?.movimientos?.slice().sort((a, b) =>
         moment(b.createdAt).diff(moment(a.createdAt))
     );
 
-    const handleNewUbicacion = () => {
+    const handleNewMovimiento = () => {
         openDrawer({
-            drawerComponent: <CreateOrUpdateUbicacion />,
+            drawerComponent: <CreateOrUpdateMovimiento />,
         });
     };
 
-    const handleDeleteUbicacion = (ubicacion: IUbicacion) => {
+    const handleDeleteMovimiento = (movimiento: IMovimiento) => {
         openModal({
             backdrop: "static",
-            modalComponent: <DeleteUbicacion ubicacion={ubicacion}/>,
+            modalComponent: <DeleteMovimiento movimiento={movimiento}/>,
         });
     };
 
-    const handleEditUbicacion = (ubicacion: IUbicacion) => {
+    const handleEditMovimiento = (movimiento: IMovimiento) => {
         openDrawer({
-            drawerComponent: <CreateOrUpdateUbicacion ubicacion={ubicacion} />
+            drawerComponent: <CreateOrUpdateMovimiento movimiento={movimiento} />
         });
     };
 
@@ -98,80 +103,100 @@ const Ubicacion = () => {
         console.log("Exportando datos...");
     };
 
-    const filteredData = sortedOrdens?.filter((item) => {
+    const filteredData = sortedMovimientos?.filter((item) => {
         const searchMatch = searchReport 
-            ? item.type.toLowerCase().includes(searchReport.toLowerCase()) ||
-              item.ubiNumber?.toLowerCase().includes(searchReport.toLowerCase()) ||
-              item.encargado?.toLowerCase().includes(searchReport.toLowerCase()) ||
-              item.ubicacion?.toLowerCase().includes(searchReport.toLowerCase()) ||
-              getTipoLabel(item.type).toLowerCase().includes(searchReport.toLowerCase())
+            ? item.solicitante.toLowerCase().includes(searchReport.toLowerCase()) ||
+              item.movimientoNumber?.toLowerCase().includes(searchReport.toLowerCase()) ||
+              item.autoriza?.toLowerCase().includes(searchReport.toLowerCase()) ||
+              getTipoLabel(item.traslado[0]).toLowerCase().includes(searchReport.toLowerCase())
             : true;
         
         const typeMatch = filterType 
-            ? item.type === filterType
+            ? item.solicitante === filterType
             : true;
 
         return searchMatch && typeMatch;
     });
 
-
-    const columns: IColumn<IUbicacion>[] = [
+    const columns: IColumn<IMovimiento>[] = [
         {
-            dataKey: "ubiNumber",
+            dataKey: "movimientoNumber",
             header: "# Identificación",
             sortable: true,
             width: 140,
             customCell: ({ rowData }) => (
                 <Tag color="blue" className="font-bold">
-                    {rowData.ubiNumber || "N/A"}
+                    {rowData.movimientoNumber || "N/A"}
                 </Tag>
             ),
         },
         {
-            dataKey: "ubicacion",
-            header: "Ubicación",
+            dataKey: "maquinaria",
+            header: "Maquinaria",
             sortable: true,
             width: 170,
             customCell: ({ rowData }) => {
-                const color = getTipoColor(rowData.type);
-                const icon = getTipoIcon(rowData.type);
-                const label = getTipoLabel(rowData.ubicacion);
+                // Verificar si maquinaria existe y tiene contenido
+                if (!rowData.maquinaria || 
+                    !Array.isArray(rowData.maquinaria) || 
+                    rowData.maquinaria.length === 0 ||
+                    !rowData.maquinaria[0]) {
+                    return (
+                        <span className="text-gray-400 italic text-sm">
+                            No asignado
+                        </span>
+                    );
+                }
+
+                const maquinariaValue = rowData.maquinaria[0];
+                const color = getTipoColor(maquinariaValue);
                 
                 return (
-                    <div className={`rounded-full px-3 py-1 flex items-center`}>
-                        {label}
+                    <div 
+                        className={`rounded-full px-3 py-1 flex items-center`}
+                    >
+                        {getTipoLabel(maquinariaValue)}
                     </div>
                 );
             },
         },
         {
-            dataKey: "canton",
-            header: "Cantón",
-            sortable: true,
-            width: 180,
-            customCell: ({ rowData }) => {
-                const value = rowData.canton || rowData.canton || "";
-                const color = getTipoColor(value);
-                const icon = getTipoIcon(value);
-                const label = getTipoLabel(value);
-                
-                return (
-                    <Badge 
-                        className={`bg-${color}-100 text-${color}-800 border border-${color}-200 rounded-full px-3 py-1 flex items-center`}
-                    >
-                        <span className="mr-2">{icon}</span>
-                        {label}
-                    </Badge>
-                );
-            },
-        },
-        {
-            dataKey: "encargado",
-            header: "Encargado",
+            dataKey: "autoriza",
+            header: "Autoriza",
             sortable: true,
             width: 120,
             customCell: ({ rowData }) => (
-                <span className="text-gray-600">{rowData.encargado || "N/A"}</span>
+                <span className="font-medium">{rowData.autoriza || "N/A"}</span>
+            ),
+        },
+        {
+            dataKey: "solicitante",
+            header: "Solicitante",
+            sortable: true,
+            width: 120,
+            customCell: ({ rowData }) => (
+                <span className="font-medium">{rowData.solicitante || "N/A"}</span>
+            ),
+        },
+        {
+            dataKey: "movimiento",
+            header: "Estado de Movimiento",
+            sortable: true,
+            width: 120,
+            customCell: ({ rowData }) => (
+                <span className="font-medium">{rowData.movimiento || "N/A"}</span>
+            ),
+        },
+        {
+            dataKey: "createdAt",
+            header: "Fecha Creación",
+            sortable: true,
+            width: 140,
+            customCell: ({ rowData }) => (
+                <div className="flex flex-col">
+                    <span className="font-medium">{moment(rowData.createdAt).format("DD/MM/YYYY")}</span>
+                    <span className="text-xs text-gray-500">{moment(rowData.createdAt).format("HH:mm")}</span>
+                </div>
             ),
         },/* 
         {
@@ -203,7 +228,7 @@ const Ubicacion = () => {
                         placement="top"
                         trigger="hover"
                         className="hover:bg-blue-50"
-                        onClick={() => handleEditUbicacion(rowData)}
+                        onClick={() => handleEditMovimiento(rowData)}
                     />
                     <ButtonTooltipIcon 
                         appearance="ghost"
@@ -214,7 +239,7 @@ const Ubicacion = () => {
                         placement="top"
                         trigger="hover"
                         className="hover:bg-red-50"
-                        onClick={() => handleDeleteUbicacion(rowData)}
+                        onClick={() => handleDeleteMovimiento(rowData)}
                     />
                 </div>
             ),
@@ -223,7 +248,6 @@ const Ubicacion = () => {
 
     const stats = {
         total: filteredData?.length || 0,
-        encargado: new Set(filteredData?.map(item => item.encargado)).size || 0,
     };
 
     return (
@@ -237,19 +261,19 @@ const Ubicacion = () => {
                         <div>
                             <h1 className="text-2xl md:text-3xl font-bold flex items-center gap-3">
                                 <span className="text-white">🚛</span>
-                                Control de Ubicaciones
+                                Control de Movimientos
                             </h1>
                             <p className="text-blue-100 mt-2">
-                                Gestione y supervise el inventario de ubicaciones
+                                Gestione y supervise los movimientos de maquinaria
                             </p>
                         </div>
                         <Button
                             appearance="primary"
                             className="bg-white text-blue-700 hover:bg-blue-50 font-bold px-6 py-3 rounded-lg shadow-lg hover:shadow-xl transition-all"
-                            onClick={handleNewUbicacion}
+                            onClick={handleNewMovimiento}
                         >
                             <span className="mr-2">➕</span>
-                            Nueva Ubicación
+                            Nuevo Movimiento
                         </Button>
                     </div>
                 </div>
@@ -260,26 +284,15 @@ const Ubicacion = () => {
                         <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-xl border border-blue-100">
                             <div className="flex items-center justify-between">
                                 <div>
-                                    <p className="text-sm text-gray-600">Total Ubicaciones</p>
+                                    <p className="text-sm text-gray-600">Total Movimientos</p>
                                     <h3 className="text-2xl font-bold text-gray-800">{stats.total}</h3>
                                 </div>
                                 <div className="bg-blue-100 p-3 rounded-full">
-                                    <span className="text-blue-600 text-xl">📍</span>
+                                    <span className="text-blue-600 text-xl">📑</span>
                                 </div>
                             </div>
                         </div>
                         
-                        <div className="bg-gradient-to-r from-orange-50 to-amber-50 p-4 rounded-xl border border-orange-100">
-                            <div className="flex items-center justify-between">
-                                <div>
-                                    <p className="text-sm text-gray-600">Encargados</p>
-                                    <h3 className="text-2xl font-bold text-gray-800">{stats.encargado}</h3>
-                                </div>
-                                <div className="bg-orange-100 p-3 rounded-full">
-                                    <span className="text-orange-600 text-xl">👤</span>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
 
@@ -290,7 +303,7 @@ const Ubicacion = () => {
                             <div className="relative">
                                 <span className="absolute left-3 top-3 text-gray-400">🔍</span>
                                 <Input 
-                                    placeholder="Buscar por tipo, ubicacion, encargado..."
+                                    placeholder="Buscar por solicitante, número, autorización..."
                                     value={searchReport}
                                     onChange={(value) => handleSearchChange(value)}
                                     className="pl-10 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
@@ -384,7 +397,7 @@ const Ubicacion = () => {
                         <Col xs={24} className="mb-4">
                             <div className="flex justify-between items-center mb-4">
                                 <h3 className="text-lg font-bold text-gray-800">
-                                    Listado de Ubicaciones
+                                    Listado de Movimientos
                                     {filteredData && (
                                         <span className="ml-2 text-sm font-normal text-gray-600">
                                             ({filteredData.length} registros)
@@ -393,15 +406,15 @@ const Ubicacion = () => {
                                 </h3>
                             </div>
 
-                            {ubicacionLoading ? (
+                            {movimientoLoading ? (
                                 <div className="flex flex-col items-center justify-center py-12">
                                     <Loader size="lg" />
-                                    <p className="mt-4 text-gray-600">Cargando ubicaciones...</p>
+                                    <p className="mt-4 text-gray-600">Cargando movimientos...</p>
                                 </div>
                             ) : (
                                 <>
                                     {filteredData && filteredData.length > 0 ? (
-                                        <Table<IUbicacion>
+                                        <Table<IMovimiento>
                                             data={filteredData}
                                             columns={columns}
                                             className="border-0 bg-gray-50 text-gray-700 font-bold"
@@ -410,24 +423,24 @@ const Ubicacion = () => {
                                     ) : (
                                         <div className="text-center py-12">
                                             <div className="inline-block p-6 bg-gray-100 rounded-full mb-4">
-                                                <span className="text-gray-400 text-4xl">📍</span>
+                                                <span className="text-gray-400 text-4xl">🚛</span>
                                             </div>
                                             <h3 className="text-xl font-bold text-gray-700 mb-2">
-                                                No se encontraron ubicaciones
+                                                No se encontraron movimientos
                                             </h3>
                                             <p className="text-gray-500 mb-6">
                                                 {searchReport || filterType 
                                                     ? "No hay resultados que coincidan con los filtros aplicados."
-                                                    : "No hay ubicaciones registradas todavía."}
+                                                    : "No hay movimientos registrados todavía."}
                                             </p>
                                             {!searchReport && !filterType && (
                                                 <Button
                                                     appearance="primary"
                                                     className="bg-blue-600 hover:bg-blue-700"
-                                                    onClick={handleNewUbicacion}
+                                                    onClick={handleNewMovimiento}
                                                 >
                                                     <span className="mr-2">➕</span>
-                                                    Registrar Primera Ubicacion
+                                                    Registrar Primer Movimiento
                                                 </Button>
                                             )}
                                         </div>
@@ -441,7 +454,7 @@ const Ubicacion = () => {
                 {/* Footer */}
                 <div className="p-4 bg-gray-50 border-t border-gray-200 text-center">
                     <p className="text-sm text-gray-600">
-                        Sistema de Control de Maquinaria • Total registros: {stats.total} • Última actualización: {moment().format("DD/MM/YYYY HH:mm")}
+                        Sistema de Control de Movimientos • Total registros: {stats.total} • Última actualización: {moment().format("DD/MM/YYYY HH:mm")}
                     </p>
                 </div>
             </Panel>
@@ -449,4 +462,4 @@ const Ubicacion = () => {
     );
 };
 
-export default Ubicacion;
+export default Movimiento;

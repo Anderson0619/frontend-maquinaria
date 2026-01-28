@@ -436,7 +436,7 @@ const CreateOrUpdateUbicacion = ({ ubicacion }: IEditUbicacionProps) => {
   { label: "Centinela del Cóndor", value: "220" },
   { label: "Palanda", value: "221" },
   { label: "Paquisha", value: "222" },
-];
+    ];
 
 
     return (
@@ -477,11 +477,11 @@ const CreateOrUpdateUbicacion = ({ ubicacion }: IEditUbicacionProps) => {
                         </h4>
                         
                         <Row gutter={16}>
-                            {/* Tipo de Maquinaria */}
+                            {/* Tipo */}
                             <Col xs={24} md={12}>
                                 <div className="mb-4">
                                     <label className="font-bold text-gray-700 mb-2 block">
-                                        Tipo de Maquinaria *
+                                        Tipo *
                                     </label>
                                     <Controller
                                         name="type"
@@ -533,7 +533,7 @@ const CreateOrUpdateUbicacion = ({ ubicacion }: IEditUbicacionProps) => {
                                     <Controller
                                         name="ubicacion"
                                         control={control}
-                                        rules={{ required: "Este campo es requerido" }}
+                                        rules={{ required: false }}
                                         render={({ field }) => (
                                             <SelectPicker
                                                 {...field}
@@ -543,7 +543,7 @@ const CreateOrUpdateUbicacion = ({ ubicacion }: IEditUbicacionProps) => {
                                                             {opt.label}
                                                         </span>
                                                     ),
-                                                    value: opt.value
+                                                    value: opt.label
                                                 }))}
                                                 block
                                                 searchable={false}
@@ -554,7 +554,7 @@ const CreateOrUpdateUbicacion = ({ ubicacion }: IEditUbicacionProps) => {
                                                     const selectedOption = ubicacionOptions.find(opt => opt.value === value);
                                                     return (
                                                         <span className={`px-3 py-1 rounded ${selectedOption?.color} font-medium`}>
-                                                            {selectedOption?.label || "Seleccionar"}
+                                                            {value || "Seleccionar"}
                                                         </span>
                                                     );
                                                 }}
@@ -573,12 +573,12 @@ const CreateOrUpdateUbicacion = ({ ubicacion }: IEditUbicacionProps) => {
                             <Col xs={24} md={12}>
                                 <div className="mb-4">
                                     <label className="font-bold text-gray-700 mb-2 block">
-                                        Provincia *
+                                        Provincia 
                                     </label>
                                     <Controller
                                         name="provincia"
                                         control={control}
-                                        rules={{ required: "Este campo es requerido" }}
+                                        rules={{ required: false }}
                                         render={({ field }) => (
                                             <SelectPicker
                                                 {...field}
@@ -588,7 +588,7 @@ const CreateOrUpdateUbicacion = ({ ubicacion }: IEditUbicacionProps) => {
                                                             {opt.label}
                                                         </span>
                                                     ),
-                                                    value: opt.value
+                                                    value: opt.label
                                                 }))}
                                                 block
                                                 searchable={true}
@@ -599,7 +599,7 @@ const CreateOrUpdateUbicacion = ({ ubicacion }: IEditUbicacionProps) => {
                                                     const selectedOption = provinciaOptions.find(opt => opt.value === value);
                                                     return (
                                                         <span className={`px-3 py-1 rounded font-medium`}>
-                                                            {selectedOption?.label || "Seleccionar"}
+                                                            {value || "Seleccionar"}
                                                         </span>
                                                     );
                                                 }}
@@ -618,12 +618,12 @@ const CreateOrUpdateUbicacion = ({ ubicacion }: IEditUbicacionProps) => {
                             <Col xs={24} md={12}>
                                 <div className="mb-4">
                                     <label className="font-bold text-gray-700 mb-2 block">
-                                        Cantón *
+                                        Cantón 
                                     </label>
                                     <Controller
                                         name="canton"
                                         control={control}
-                                        rules={{ required: "Este campo es requerido" }}
+                                        rules={{ required: false }}
                                         render={({ field }) => (
                                             <SelectPicker
                                                 {...field}
@@ -633,7 +633,7 @@ const CreateOrUpdateUbicacion = ({ ubicacion }: IEditUbicacionProps) => {
                                                             {opt.label}
                                                         </span>
                                                     ),
-                                                    value: opt.value
+                                                    value: opt.label
                                                 }))}
                                                 block
                                                 searchable={true}
@@ -644,7 +644,7 @@ const CreateOrUpdateUbicacion = ({ ubicacion }: IEditUbicacionProps) => {
                                                     const selectedOption = cantonOptions.find(opt => opt.value === value);
                                                     return (
                                                         <span className={`px-3 py-1 rounded font-medium`}>
-                                                            {selectedOption?.label || "Seleccionar"}
+                                                            {value || "Seleccionar"}
                                                         </span>
                                                     );
                                                 }}
