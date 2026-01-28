@@ -116,7 +116,7 @@ const Ubicacion = () => {
 
 
     const columns: IColumn<IUbicacion>[] = [
-        {
+        /* {
             dataKey: "ubiNumber",
             header: "# Identificación",
             sortable: true,
@@ -126,12 +126,12 @@ const Ubicacion = () => {
                     {rowData.ubiNumber || "N/A"}
                 </Tag>
             ),
-        },
+        }, */
         {
             dataKey: "ubicacion",
             header: "Ubicación",
             sortable: true,
-            width: 170,
+            width: 320,
             customCell: ({ rowData }) => {
                 const color = getTipoColor(rowData.type);
                 const icon = getTipoIcon(rowData.type);
@@ -156,12 +156,9 @@ const Ubicacion = () => {
                 const label = getTipoLabel(value);
                 
                 return (
-                    <Badge 
-                        className={`bg-${color}-100 text-${color}-800 border border-${color}-200 rounded-full px-3 py-1 flex items-center`}
-                    >
-                        <span className="mr-2">{icon}</span>
+                    <div className={` px-3 py-1 flex items-center`}>
                         {label}
-                    </Badge>
+                    </div>
                 );
             },
         },
@@ -169,25 +166,20 @@ const Ubicacion = () => {
             dataKey: "encargado",
             header: "Encargado",
             sortable: true,
-            width: 120,
+            width: 170,
             customCell: ({ rowData }) => (
                 <span className="text-gray-600">{rowData.encargado || "N/A"}</span>
             ),
-        },/* 
+        },
         {
-            dataKey: "description",
-            header: "Descripción",
-            width: 200,
+            dataKey: "type",
+            header: "Tipo",
+            sortable: true,
+            width: 150,
             customCell: ({ rowData }) => (
-                <div className="truncate max-w-xs" title={rowData.description}>
-                    {rowData.description ? (
-                        rowData.description.length > 50 
-                            ? `${rowData.description.substring(0, 50)}...`
-                            : rowData.description
-                    ) : "Sin descripción"}
-                </div>
+                <span className="text-gray-600">{rowData.type || "N/A"}</span>
             ),
-        }, */
+        },
         {
             dataKey: "id",
             header: "Acciones",
@@ -205,7 +197,7 @@ const Ubicacion = () => {
                         className="hover:bg-blue-50"
                         onClick={() => handleEditUbicacion(rowData)}
                     />
-                    <ButtonTooltipIcon 
+                    {/* <ButtonTooltipIcon 
                         appearance="ghost"
                         color="red"
                         icon={<Icon icon="trash" />}
@@ -215,15 +207,18 @@ const Ubicacion = () => {
                         trigger="hover"
                         className="hover:bg-red-50"
                         onClick={() => handleDeleteUbicacion(rowData)}
-                    />
+                    /> */}
                 </div>
             ),
         },
     ];
 
     const stats = {
-        total: filteredData?.length || 0,
-        encargado: new Set(filteredData?.map(item => item.encargado)).size || 0,
+        total: filteredData?.length,
+        obra: filteredData?.filter(item => item.type === 'Obra').length,
+        alquiler: filteredData?.filter(item => item.type === 'Alquiler').length,
+        campamento: filteredData?.filter(item => item.type === 'Campamento').length,
+        taller: filteredData?.filter(item => item.type === 'Taller').length,
     };
 
     return (
@@ -272,11 +267,47 @@ const Ubicacion = () => {
                         <div className="bg-gradient-to-r from-orange-50 to-amber-50 p-4 rounded-xl border border-orange-100">
                             <div className="flex items-center justify-between">
                                 <div>
-                                    <p className="text-sm text-gray-600">Encargados</p>
-                                    <h3 className="text-2xl font-bold text-gray-800">{stats.encargado}</h3>
+                                    <p className="text-sm text-gray-600">Obras</p>
+                                    <h3 className="text-2xl font-bold text-gray-800">{stats.obra}</h3>
+                                </div>
+                                <div className="bg-orange-100 p-3 rounded-full">
+                                    <span className="text-orange-600 text-xl">🏗️</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="bg-gradient-to-r from-orange-50 to-amber-50 p-4 rounded-xl border border-orange-100">
+                            <div className="flex items-center justify-between">
+                                <div>
+                                    <p className="text-sm text-gray-600">Alquiler</p>
+                                    <h3 className="text-2xl font-bold text-gray-800">{stats.alquiler}</h3>
                                 </div>
                                 <div className="bg-orange-100 p-3 rounded-full">
                                     <span className="text-orange-600 text-xl">👤</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="bg-gradient-to-r from-orange-50 to-amber-50 p-4 rounded-xl border border-orange-100">
+                            <div className="flex items-center justify-between">
+                                <div>
+                                    <p className="text-sm text-gray-600">Campamento</p>
+                                    <h3 className="text-2xl font-bold text-gray-800">{stats.campamento}</h3>
+                                </div>
+                                <div className="bg-orange-100 p-3 rounded-full">
+                                    <span className="text-orange-600 text-xl">🏕️</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="bg-gradient-to-r from-orange-50 to-amber-50 p-4 rounded-xl border border-orange-100">
+                            <div className="flex items-center justify-between">
+                                <div>
+                                    <p className="text-sm text-gray-600">Taller</p>
+                                    <h3 className="text-2xl font-bold text-gray-800">{stats.taller}</h3>
+                                </div>
+                                <div className="bg-orange-100 p-3 rounded-full">
+                                    <span className="text-orange-600 text-xl">🛠️</span>
                                 </div>
                             </div>
                         </div>
@@ -294,30 +325,6 @@ const Ubicacion = () => {
                                     value={searchReport}
                                     onChange={(value) => handleSearchChange(value)}
                                     className="pl-10 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
-                                />
-                            </div>
-                        </div>
-                        
-                        <div className="w-full md:w-64">
-                            <div className="flex items-center">
-                                <span className="mr-2 text-gray-400">⚙️</span>
-                                <SelectPicker
-                                    data={tipoOptions.map(opt => ({
-                                        label: (
-                                            <div className="flex items-center">
-                                                <span className="mr-2">
-                                                    {opt.icon}
-                                                </span>
-                                                {opt.label}
-                                            </div>
-                                        ),
-                                        value: opt.value
-                                    }))}
-                                    value={filterType}
-                                    onChange={handleFilterChange}
-                                    placeholder="Filtrar por tipo"
-                                    cleanable
-                                    className="w-full"
                                 />
                             </div>
                         </div>

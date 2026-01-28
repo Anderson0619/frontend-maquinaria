@@ -567,12 +567,12 @@ const filteredData = useMemo(() => {
                                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                             Solicitante / Autoriza
                                         </th>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        {/* <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                             Ruta
-                                        </th>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        </th> */}
+                                        {/* <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                             Estado
-                                        </th>
+                                        </th> */}
                                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                             Fechas
                                         </th>
@@ -601,7 +601,7 @@ const filteredData = useMemo(() => {
                                                         <div className="text-sm text-gray-500">Autoriza: {mov.autoriza}</div>
                                                     </div>
                                                 </td>
-                                                <td className="px-6 py-4">
+                                                {/* <td className="px-6 py-4">
                                                     <div className="text-sm">
                                                         <div className="flex items-center">
                                                             <span className="text-gray-600">De:</span>
@@ -612,15 +612,15 @@ const filteredData = useMemo(() => {
                                                             <span className="font-medium ml-1">{Array.isArray(mov.traslado) ? mov.traslado.join(', ') : mov.traslado}</span>
                                                         </div>
                                                     </div>
-                                                </td>
-                                                <td className="px-6 py-4 whitespace-nowrap">
+                                                </td> */}
+                                                {/* <td className="px-6 py-4 whitespace-nowrap">
                                                     <div color={
                                                         mov.movimiento === 'Activo' ? 'green' :
                                                         mov.movimiento === 'Inactivo' ? 'blue' : 'red'
                                                     }>
                                                         {mov.movimiento || 'Sin Estado'}
                                                     </div>
-                                                </td>
+                                                </td> */}
                                                 <td className="px-6 py-4">
                                                     <div className="text-sm">
                                                         <div>Solicitud: {mov.fechaS}</div>

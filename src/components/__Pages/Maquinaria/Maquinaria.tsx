@@ -123,20 +123,20 @@ const Maquinaria = () => {
     const columns: IColumn<IMaquinaria>[] = [
         {
             dataKey: "maquiNumber",
-            header: "# ID",
+            header: "Identificador",
             sortable: true,
-            width: 140,
+            width: 170,
             customCell: ({ rowData }) => (
-                <Tag color="blue" className="font-bold">
+                <div className="font-bold">
                     {rowData.maquiNumber || "N/A"}
-                </Tag>
+                </div>
             ),
         },
         {
             dataKey: "type",
             header: "Tipo",
             sortable: true,
-            width: 170,
+            width: 180,
             customCell: ({ rowData }) => {
                 const color = getTipoColor(rowData.type);
                 const icon = getTipoIcon(rowData.type);
@@ -153,7 +153,7 @@ const Maquinaria = () => {
             dataKey: "mark",
             header: "Marca",
             sortable: true,
-            width: 150,
+            width: 180,
             customCell: ({ rowData }) => {
                 const color = getTipoColor(rowData.type);
                 const icon = getTipoIcon(rowData.type);
@@ -170,7 +170,7 @@ const Maquinaria = () => {
             dataKey: "model",
             header: "Modelo",
             sortable: true,
-            width: 120,
+            width: 150,
             customCell: ({ rowData }) => (
                 <span className="text-gray-600">{rowData.model || "N/A"}</span>
             ),
@@ -208,17 +208,17 @@ const Maquinaria = () => {
                 );
             },
         },
-        /* {
+        {
             dataKey: "anio",
             header: "Año",
             sortable: true,
             width: 80,
             customCell: ({ rowData }) => (
-                <Badge className="bg-gray-100 text-gray-800 rounded-full px-3 py-1">
+                <div className="text-gray-800 px-3 py-1">
                     {rowData.anio || "N/A"}
-                </Badge>
+                </div>
             ),
-        }, */
+        },
         
         /* 
         {
@@ -285,7 +285,7 @@ const Maquinaria = () => {
                         <div>
                             <h1 className="text-2xl md:text-3xl font-bold flex items-center gap-3">
                                 <span className="text-white">🚛</span>
-                                Control de Maquinaria
+                                Control de Inventario
                             </h1>
                             <p className="text-blue-100 mt-2">
                                 Gestione y supervise el inventario de maquinaria pesada

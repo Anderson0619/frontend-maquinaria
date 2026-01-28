@@ -119,7 +119,7 @@ const Movimiento = () => {
     });
 
     const columns: IColumn<IMovimiento>[] = [
-        {
+        /* {
             dataKey: "movimientoNumber",
             header: "# Identificación",
             sortable: true,
@@ -129,7 +129,7 @@ const Movimiento = () => {
                     {rowData.movimientoNumber || "N/A"}
                 </Tag>
             ),
-        },
+        }, */
         {
             dataKey: "maquinaria",
             header: "Maquinaria",
@@ -164,7 +164,7 @@ const Movimiento = () => {
             dataKey: "autoriza",
             header: "Autoriza",
             sortable: true,
-            width: 120,
+            width: 150,
             customCell: ({ rowData }) => (
                 <span className="font-medium">{rowData.autoriza || "N/A"}</span>
             ),
@@ -173,30 +173,27 @@ const Movimiento = () => {
             dataKey: "solicitante",
             header: "Solicitante",
             sortable: true,
-            width: 120,
+            width: 150,
             customCell: ({ rowData }) => (
                 <span className="font-medium">{rowData.solicitante || "N/A"}</span>
             ),
         },
         {
-            dataKey: "movimiento",
-            header: "Estado de Movimiento",
+            dataKey: "origen",
+            header: "Lugar de Origen",
             sortable: true,
-            width: 120,
+            width: 200,
             customCell: ({ rowData }) => (
-                <span className="font-medium">{rowData.movimiento || "N/A"}</span>
+                <span className="font-medium">{rowData.origen || "N/A"}</span>
             ),
         },
         {
-            dataKey: "createdAt",
-            header: "Fecha Creación",
+            dataKey: "traslado",
+            header: "Lugar de Destino",
             sortable: true,
-            width: 140,
+            width: 200,
             customCell: ({ rowData }) => (
-                <div className="flex flex-col">
-                    <span className="font-medium">{moment(rowData.createdAt).format("DD/MM/YYYY")}</span>
-                    <span className="text-xs text-gray-500">{moment(rowData.createdAt).format("HH:mm")}</span>
-                </div>
+                <span className="font-medium">{rowData.traslado || "N/A"}</span>
             ),
         },/* 
         {
@@ -230,7 +227,7 @@ const Movimiento = () => {
                         className="hover:bg-blue-50"
                         onClick={() => handleEditMovimiento(rowData)}
                     />
-                    <ButtonTooltipIcon 
+                    {/* <ButtonTooltipIcon 
                         appearance="ghost"
                         color="red"
                         icon={<Icon icon="trash" />}
@@ -240,7 +237,7 @@ const Movimiento = () => {
                         trigger="hover"
                         className="hover:bg-red-50"
                         onClick={() => handleDeleteMovimiento(rowData)}
-                    />
+                    /> */}
                 </div>
             ),
         },

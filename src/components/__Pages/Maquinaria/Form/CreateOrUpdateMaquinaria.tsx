@@ -112,6 +112,11 @@ const CreateOrUpdateMaquinaria = ({ maquinaria }: IEditMaquinariaProps) => {
         }
     };
 
+    const estadoOptions = [
+        { label: "Activo", value: "1", color: "bg-green-100 text-green-800" },
+        { label: "Inactivo", value: "2", color: "bg-red-100 text-red-800" },
+    ];
+
     const {
         control, 
         handleSubmit, 
@@ -124,7 +129,7 @@ const CreateOrUpdateMaquinaria = ({ maquinaria }: IEditMaquinariaProps) => {
             mark: maquinaria?.mark || "",
             model: maquinaria?.model || "",
             anio: maquinaria?.anio || "",
-            estado: maquinaria?.estado || "",
+            estado: maquinaria?.estado || estadoOptions[0].label,
             location: maquinaria?.location || "",
             detalle: maquinaria?.detalle || "",
             description: maquinaria?.description || "",
@@ -165,11 +170,6 @@ const CreateOrUpdateMaquinaria = ({ maquinaria }: IEditMaquinariaProps) => {
         { label: "Pavimentadora", value: "9", color: "bg-pink-100 text-pink-800" },
     ];
 
-    const estadoOptions = [
-        { label: "Activo", value: "1", color: "bg-green-100 text-green-800" },
-        { label: "Inactivo", value: "2", color: "bg-red-100 text-red-800" },
-    ];
-
     return (
         <div className="p-4 md:p-6 bg-gradient-to-br from-indigo-50 to-purple-50 min-h-screen">
             <Header title={isEditMode ? "EDITAR MAQUINARIA" : "NUEVA MAQUINARIA"} />
@@ -208,7 +208,48 @@ const CreateOrUpdateMaquinaria = ({ maquinaria }: IEditMaquinariaProps) => {
                         </h4>
                         
                         <Row gutter={16}>
-                            {/* Tipo de Maquinaria */}
+                            <Col xs={24} md={8}>
+                                <div className="mb-4">
+                                    <label className="font-bold text-gray-700 mb-2 block">
+                                        Número de Maquinaria *
+                                        {!isEditMode && (
+                                            <span className="ml-2 text-xs text-indigo-600 bg-indigo-100 px-2 py-1 rounded-full">
+                                                Único
+                                            </span>
+                                        )}
+                                    </label>
+                                    <Controller
+                                        name="maquiNumber"
+                                        control={control}
+                                        rules={{ 
+                                            required: "Este campo es requerido",
+                                            minLength: {
+                                                value: 3,
+                                                message: "Mínimo 3 caracteres"
+                                            }
+                                        }}
+                                        render={({ field }) => (
+                                            <Input 
+                                                {...field} 
+                                                placeholder="Ej: MAQ-001, EXC-2024"
+                                                disabled={isEditMode} // Si es edición, no se puede cambiar
+                                                className={`border-2 ${errors.maquiNumber ? 'border-red-500' : 'border-gray-300'} rounded-lg hover:border-indigo-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all ${isEditMode ? 'bg-gray-100' : ''}`}
+                                            />
+                                        )}
+                                    />
+                                    {errors.maquiNumber && (
+                                        <div className="mt-2 text-red-600 text-sm bg-red-50 p-2 rounded-lg">
+                                            {errors.maquiNumber.message}
+                                        </div>
+                                    )}
+                                    <p className="text-gray-500 text-sm mt-2">
+                                        {isEditMode 
+                                            ? "El número de maquinaria no puede ser modificado"
+                                            : "Ingrese un identificador único para esta maquinaria"
+                                        }
+                                    </p>
+                                </div>
+                            </Col>
                             <Col xs={24} md={8}>
                                 <div className="mb-4">
                                     <label className="font-bold text-gray-700 mb-2 block">
@@ -251,50 +292,7 @@ const CreateOrUpdateMaquinaria = ({ maquinaria }: IEditMaquinariaProps) => {
                                         </div>
                                     )}
                                 </div>
-                            </Col>
-                            <Col xs={24} md={8}>
-                                <div className="mb-4">
-                                    <label className="font-bold text-gray-700 mb-2 block">
-                                        Ubicación *
-                                    </label>
-                                    <Controller
-                                        name="location"
-                                        control={control}
-                                        rules={{ required: false }}
-                                        render={({ field }) => (
-                                            <SelectPicker
-                                                {...field}
-                                                data={ubicacionOptions.map(opt => ({
-                                                    label: (
-                                                        <span className={`px-2 py-1 rounded ${opt.color} text-sm font-medium`}>
-                                                            {opt.label}
-                                                        </span>
-                                                    ),
-                                                    value: opt.label
-                                                }))}
-                                                block
-                                                searchable={false}
-                                                placeholder="Seleccione la ubicación"
-                                                menuClassName="shadow-lg border-0 rounded-lg"
-                                                className={`border-2 ${errors.location ? 'border-red-500' : 'border-gray-300'} rounded-lg hover:border-indigo-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all`}
-                                                renderValue={(value, item) => {
-                                                    const selectedOption = ubicacionOptions.find(opt => opt.value === value);
-                                                    return (
-                                                        <span className={`px-3 py-1 rounded ${selectedOption?.color} font-medium`}>
-                                                            {value || "Seleccionar"}
-                                                        </span>
-                                                    );
-                                                }}
-                                            />
-                                        )}
-                                    />
-                                    {errors.type && (
-                                        <div className="mt-2 text-red-600 text-sm bg-red-50 p-2 rounded-lg">
-                                            {errors.type.message}
-                                        </div>
-                                    )}
-                                </div>
-                            </Col>
+                            </Col>                            
                             <Col xs={24} md={8}>
                                 <div className="mb-4">
                                     <label className="font-bold text-gray-700 mb-2 block">
@@ -426,35 +424,6 @@ const CreateOrUpdateMaquinaria = ({ maquinaria }: IEditMaquinariaProps) => {
                                 </div>
                             </Col>
                         </Row>
-                    </div>
-
-                    <div className="p-6">
-                        <h4 className="font-bold text-gray-700 text-lg mb-6 flex items-center gap-2">
-                            <span className="bg-indigo-100 text-indigo-600 p-2 rounded-lg">📝</span>
-                            Características de la Maquinaria
-                        </h4>
-                        
-                        <div className="mb-4">
-                            <label className="font-bold text-gray-700 mb-2 block">
-                                Descripción Detallada
-                            </label>
-                            <Controller
-                                name="detalle"
-                                control={control}
-                                render={({ field }) => (
-                                    <Input 
-                                        {...field} 
-                                        as="textarea" 
-                                        rows={5} 
-                                        placeholder="Describa las características de la maquinaria..."
-                                        className="border-2 border-gray-300 rounded-lg hover:border-indigo-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all resize-none"
-                                    />
-                                )}
-                            />
-                            <p className="text-gray-500 text-sm mt-2">
-                                Incluya información relevante de la maquinaria
-                            </p>
-                        </div>
                     </div>
 
                     {/* Sección de Descripción */}

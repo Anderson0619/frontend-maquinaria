@@ -478,6 +478,33 @@ const CreateOrUpdateUbicacion = ({ ubicacion }: IEditUbicacionProps) => {
                         
                         <Row gutter={16}>
                             {/* Tipo */}
+                            <Col xs={24} md={24}>
+                                <div className="mb-4">
+                                    <label className="font-bold text-gray-700 mb-2 block">
+                                        Ubicación *
+                                    </label>
+                                    <Controller
+                                        name="ubicacion"
+                                        control={control}
+                                        rules={{ required: "Este campo es requerido" }}
+                                        render={({ field }) => (
+                                            <Input 
+                                                {...field} 
+                                                className={`border-2 ${errors.ubicacion ? 'border-red-500' : 'border-gray-300'} rounded-lg hover:border-indigo-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all`}
+                                                autoComplete="off"
+                                            />  
+                                        )}
+                                    />
+                                    {errors.ubicacion && (
+                                        <div className="mt-2 text-red-600 text-sm bg-red-50 p-2 rounded-lg">
+                                            {errors.ubicacion.message}
+                                        </div>
+                                    )}
+                                </div>
+                            </Col>
+                        </Row>
+
+                        <Row gutter={16}>
                             <Col xs={24} md={12}>
                                 <div className="mb-4">
                                     <label className="font-bold text-gray-700 mb-2 block">
@@ -485,53 +512,6 @@ const CreateOrUpdateUbicacion = ({ ubicacion }: IEditUbicacionProps) => {
                                     </label>
                                     <Controller
                                         name="type"
-                                        control={control}
-                                        rules={{ required: "Este campo es requerido" }}
-                                        render={({ field }) => (
-                                            <SelectPicker
-                                                {...field}
-                                                data={tipoOptions.map(opt => ({
-                                                    label: (
-                                                        <span className={`px-2 py-1 rounded ${opt.color} text-sm font-medium`}>
-                                                            {opt.label}
-                                                        </span>
-                                                    ),
-                                                    value: opt.value
-                                                }))}
-                                                block
-                                                searchable={false}
-                                                placeholder="Seleccione el tipo"
-                                                menuClassName="shadow-lg border-0 rounded-lg"
-                                                className={`border-2 ${errors.type ? 'border-red-500' : 'border-gray-300'} rounded-lg hover:border-indigo-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all`}
-                                                renderValue={(value, item) => {
-                                                    const selectedOption = tipoOptions.find(opt => opt.value === value);
-                                                    return (
-                                                        <span className={`px-3 py-1 rounded ${selectedOption?.color} font-medium`}>
-                                                            {selectedOption?.label || "Seleccionar"}
-                                                        </span>
-                                                    );
-                                                }}
-                                            />
-                                        )}
-                                    />
-                                    {errors.type && (
-                                        <div className="mt-2 text-red-600 text-sm bg-red-50 p-2 rounded-lg">
-                                            {errors.type.message}
-                                        </div>
-                                    )}
-                                </div>
-                            </Col>
-                        </Row>
-
-                        <Row gutter={16} className="mt-4">
-                            {/* Ubicación */}
-                            <Col xs={24} md={12}>
-                                <div className="mb-4">
-                                    <label className="font-bold text-gray-700 mb-2 block">
-                                        Ubicación *
-                                    </label>
-                                    <Controller
-                                        name="ubicacion"
                                         control={control}
                                         rules={{ required: false }}
                                         render={({ field }) => (
@@ -568,9 +548,37 @@ const CreateOrUpdateUbicacion = ({ ubicacion }: IEditUbicacionProps) => {
                                     )}
                                 </div>
                             </Col>
+                             { /* Encargado */}
+                            <Col xs={24} md={12}>
+                                <div className="mb-4">
+                                    <label className="font-bold text-gray-700 mb-2 block">
+                                        Encargado *
+                                    </label>
+                                    <Controller
+                                        name="encargado"
+                                        control={control}
+                                        rules={{ required: "Este campo es requerido" }}
+                                        render={({ field }) => (
+                                            <Input 
+                                                {...field} 
+                                                className={`border-2 ${errors.encargado ? 'border-red-500' : 'border-gray-300'} rounded-lg hover:border-indigo-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all`}
+                                                autoComplete="off"
+                                            />                                        
+                                        )}
+                                    />
+                                    {errors.encargado && (
+                                        <div className="mt-2 text-red-600 text-sm bg-red-50 p-2 rounded-lg">
+                                            {errors.encargado.message}
+                                        </div>
+                                    )}
+                                </div>
+                            </Col>
+                        </Row>
+
+                        <Row gutter={16} className="mt-4">                            
 
                             {/* Provincia */}
-                            <Col xs={24} md={12}>
+                            {/* <Col xs={24} md={12}>
                                 <div className="mb-4">
                                     <label className="font-bold text-gray-700 mb-2 block">
                                         Provincia 
@@ -612,7 +620,7 @@ const CreateOrUpdateUbicacion = ({ ubicacion }: IEditUbicacionProps) => {
                                         </div>
                                     )}
                                 </div>
-                            </Col>
+                            </Col> */}
 
                             {/* Cantón */}
                             <Col xs={24} md={12}>
@@ -654,32 +662,6 @@ const CreateOrUpdateUbicacion = ({ ubicacion }: IEditUbicacionProps) => {
                                     {errors.type && (
                                         <div className="mt-2 text-red-600 text-sm bg-red-50 p-2 rounded-lg">
                                             {errors.type.message}
-                                        </div>
-                                    )}
-                                </div>
-                            </Col>
-
-                            { /* Encargado */}
-                            <Col xs={24} md={12}>
-                                <div className="mb-4">
-                                    <label className="font-bold text-gray-700 mb-2 block">
-                                        Encargado *
-                                    </label>
-                                    <Controller
-                                        name="encargado"
-                                        control={control}
-                                        rules={{ required: "Este campo es requerido" }}
-                                        render={({ field }) => (
-                                            <Input 
-                                                {...field} 
-                                                className={`border-2 ${errors.encargado ? 'border-red-500' : 'border-gray-300'} rounded-lg hover:border-indigo-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all`}
-                                                autoComplete="off"
-                                            />                                        
-                                        )}
-                                    />
-                                    {errors.encargado && (
-                                        <div className="mt-2 text-red-600 text-sm bg-red-50 p-2 rounded-lg">
-                                            {errors.encargado.message}
                                         </div>
                                     )}
                                 </div>
