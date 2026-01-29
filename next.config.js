@@ -3,15 +3,16 @@ const nextTranslate = require("next-translate");
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // 🔴 IMPRESCINDIBLE: Esto falta en tu archivo
-  output: 'standalone',
+  // ❗ ELIMINA esta línea - NO uses 'output: standalone' a menos que sepas lo que haces
+  // output: 'standalone', // ⬅️ QUITA ESTO
+  
+  // ✅ Esta SÍ es necesaria:
   distDir: '.next',
   
   images: {
     domains: ["storage.googleapis.com", "cdn.ndrz.io"],
   },
   
-  // 🔴 CORREGIR: "typeScript" debe ser "typescript" (minúscula)
   typescript: {
     ignoreBuildErrors: true,
   },
@@ -22,11 +23,11 @@ const nextConfig = {
 
   reactStrictMode: true,
   
+  // 🔽 OPCIONAL: Si no usas topLevelAwait, puedes quitarlo
   webpack: (config) => {
     config.experiments = { topLevelAwait: true };
     return config;
   },
 };
 
-// 🔴 ELIMINAR: withPlugins, withPWA, dotenv
-module.exports = withImages(nextTranslate(nextConfig));
+module.exports = nextTranslate(withImages(nextConfig));

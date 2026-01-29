@@ -45,7 +45,7 @@ export const CustomCell = <TData extends {}>(params: ICustomCell<TData>) => {
       {...props}
       className={className}
       style={cellStyle}
-      dataKey={`${dataKey}`}
+      dataKey={String(dataKey)}
     >
       <Component {...{ rowData }} />
     </Cell>
@@ -78,7 +78,7 @@ export const ButtonCell = <TData extends {}>(params: IButtonCell<TData>) => {
       {...props}
       className={className}
       style={cellStyle}
-      dataKey={`${dataKey}`}
+      dataKey={String(dataKey)}
     >
       <Button appearance={buttonAppearance} {...defaultProps} onClick={onClick}>
         {buttonIcon && <>&nbsp;</>}
