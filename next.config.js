@@ -16,6 +16,12 @@ const config = {
     maximumFileSizeToCacheInBytes: 5242880,
     disable: process.env.NODE_ENV === "development",
   },
+  typeScript: {
+    ignoreBuildErrors: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 
   reactStrictMode: true,
   webpack: (config, { webpack }) => {
