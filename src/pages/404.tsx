@@ -1,7 +1,8 @@
 import { useTheme } from "next-themes";
 import useTranslation from "next-translate/useTranslation";
 import { useRouter } from "next/router";
-import Lottie from "react-lottie";
+//import Lottie from "react-lottie";
+import dynamic from 'next/dynamic';
 import { ERoutePath, PUBLIC_ROUTES } from "routes/routes";
 import { Button } from "rsuite";
 import notFoundLight from "utils/lottie/404-dark.json";
@@ -15,6 +16,10 @@ const LightLottieOptions = {
     preserveAspectRatio: "xMidYMid slice",
   },
 };
+
+const Lottie = dynamic(() => import('react-lottie'), {
+  ssr: false,
+});
 
 const DarkLottieOptions = {
   loop: true,

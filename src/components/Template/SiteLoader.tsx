@@ -3,7 +3,8 @@ import { useProfile } from "context/profile/profile.context";
 import { useTheme } from "next-themes";
 import { useRouter } from "next/router";
 import { useCallback, useContext, useEffect, useState } from "react";
-import Lottie from "react-lottie";
+//import Lottie from "react-lottie";
+import dynamic from 'next/dynamic';
 import { ERoutePath, PUBLIC_ROUTES } from "routes/routes";
 import { LOGIN_REDIRECT_ROUTE } from "settings/constants";
 import lottieSiteLoaderDark from "utils/lottie/site-loader-dark.json";
@@ -17,6 +18,10 @@ const loaderLightLottieOptions = {
     preserveAspectRatio: "xMidYMid slice",
   },
 };
+
+const Lottie = dynamic(() => import('react-lottie'), {
+  ssr: false,
+});
 
 const loaderDarkLottieOptions = {
   loop: true,

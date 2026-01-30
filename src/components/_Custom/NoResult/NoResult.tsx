@@ -1,6 +1,7 @@
 import useTranslation from "next-translate/useTranslation";
 import React from "react";
-import Lottie from "react-lottie";
+//import Lottie from "react-lottie";
+import dynamic from 'next/dynamic';
 import { Button } from "rsuite";
 import lottieNotFound from "utils/lottie/not-found.json";
 
@@ -12,6 +13,10 @@ type NoResultProps = {
   hideButton?: boolean;
   style?: any;
 };
+
+const Lottie = dynamic(() => import('react-lottie'), {
+  ssr: false,
+});
 
 const lottieNotFoundOptions = {
   loop: true,
