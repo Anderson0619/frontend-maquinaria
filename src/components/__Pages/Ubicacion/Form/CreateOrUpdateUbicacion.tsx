@@ -137,6 +137,7 @@ const CreateOrUpdateUbicacion = ({ ubicacion }: IEditUbicacionProps) => {
         { label: "Alquiler", value: "2", color: "bg-blue-100 text-blue-800" },
         { label: "Campamento", value: "3", color: "bg-cyan-100 text-cyan-800" },
         { label: "Taller", value: "4", color: "bg-red-100 text-red-800" },
+        { label: "Cantera", value: "5", color: "bg-red-100 text-red-800" },
     ];
 
     const provinciaOptions = [
@@ -519,7 +520,7 @@ const CreateOrUpdateUbicacion = ({ ubicacion }: IEditUbicacionProps) => {
                                                 {...field}
                                                 data={ubicacionOptions.map(opt => ({
                                                     label: (
-                                                        <span className={`px-2 py-1 rounded ${opt.color} text-sm font-medium`}>
+                                                        <span className={`px-2 py-1 rounded text-sm font-medium`}>
                                                             {opt.label}
                                                         </span>
                                                     ),
@@ -688,7 +689,7 @@ const CreateOrUpdateUbicacion = ({ ubicacion }: IEditUbicacionProps) => {
                                         {...field} 
                                         as="textarea" 
                                         rows={5} 
-                                        placeholder="Describa las características, condiciones, equipamiento adicional, horas de uso, estado actual..."
+                                        //placeholder="Describa las características, condiciones, equipamiento adicional, horas de uso, estado actual..."
                                         className="border-2 border-gray-300 rounded-lg hover:border-indigo-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all resize-none"
                                     />
                                 )}

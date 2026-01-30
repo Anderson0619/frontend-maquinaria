@@ -425,143 +425,8 @@ const validateFechaSolicitud = (fechaS: string) => {
                 </div>
               </Col>
               
-              <Col xs={24} md={12}>
-                <div className="mb-4">
-                  <label className="font-bold text-gray-700 mb-2 block">
-                    Detalles de la Máquina *
-                  </label>
-                  <Controller
-                    name="movimiento"
-                    control={control}
-                    render={({ field }) => (
-                      <div className="relative">
-                        <Input
-                          value={field.value || ""}
-                          readOnly
-                          className="border-2 border-gray-300 rounded-lg bg-gray-50 text-gray-700 cursor-not-allowed transition-all pr-10"
-                          placeholder="Seleccione una máquina primero..."
-                        />
-                        <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">
-                          📋
-                        </div>
-                      </div>
-                    )}
-                  />
-                  
-                  {selectedMaquinariaInfo && (
-                    <div className="mt-2 p-3 bg-blue-50 border border-blue-200 rounded-lg">
-                      <div className="text-sm text-blue-700 space-y-1">
-                        <div className="font-medium mb-1">Detalles que se guardarán:</div>
-                        {detallesCompletos.split(" | ").map((detalle, index) => (
-                          <div key={index} className="flex items-start">
-                            <span className="text-blue-500 mr-2">•</span>
-                            <span>{detalle}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </Col>
+              
             </Row>
-
-            {/* Historial de la máquina */}
-            {selectedMaquinaria && (
-              <div className="mt-6 mb-6 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-200">
-                {loadingHistorial ? (
-                  <div className="flex items-center justify-center py-4">
-                    <Loader size="sm" />
-                    <span className="ml-2 text-gray-600">
-                      Cargando histórico...
-                    </span>
-                  </div>
-                ) : historialMaquinaria.length > 0 ? (
-                  <>
-                    <h5 className="font-bold text-gray-800 mb-3 flex items-center gap-2">
-                      <span className="text-blue-600">📋</span>
-                      Historial de Ubicaciones - {selectedMaquinaria}
-                      <Tag color="blue" className="ml-2">
-                        {historialMaquinaria.length} movimientos
-                      </Tag>
-                    </h5>
-
-                    <div className="space-y-4">
-                      <div className="bg-white p-4 rounded-lg border">
-                        <h6 className="font-bold text-gray-700 mb-2">📊 Resumen</h6>
-                        <div className="space-y-2">
-                          <div className="flex justify-between">
-                            <span className="text-gray-600">Origen actual:</span>
-                            <span className="font-medium">
-                              {convertirValueALabel(watch("origen"))}
-                            </span>
-                          </div>
-                          <div className="flex justify-between">
-                            <span className="text-gray-600">Origen frecuente:</span>
-                            <span className="font-medium">
-                              {getLugarMasFrecuente(historialMaquinaria, "origen")}
-                            </span>
-                          </div>
-                          <div className="flex justify-between">
-                            <span className="text-gray-600">Destino frecuente:</span>
-                            <span className="font-medium">
-                              {getLugarMasFrecuente(historialMaquinaria, "traslado")}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div>
-                        <h6 className="font-bold text-gray-700 mb-2">
-                          🕐 Últimos Movimientos
-                        </h6>
-                        <div className="space-y-2">
-                          {historialMaquinaria.slice(0, 5).map((mov, index) => (
-                            <div
-                              key={mov.id}
-                              className="bg-white p-3 rounded-lg border border-gray-200"
-                            >
-                              <div className="flex justify-between items-start">
-                                <div>
-                                  <div className="flex items-center gap-2 mb-1">
-                                    <span className="text-sm text-gray-500">
-                                      {new Date(mov.createdAt).toLocaleDateString("es-ES")}
-                                    </span>
-                                    <Tag size="sm" color="cyan">
-                                      Mov #{historialMaquinaria.length - index}
-                                    </Tag>
-                                  </div>
-                                  <div className="text-sm">
-                                    <span className="text-gray-600">De: </span>
-                                    <span className="font-medium">
-                                      {convertirValueALabel(mov.origen)}
-                                    </span>
-                                    <span className="mx-2 text-gray-400">→</span>
-                                    <span className="text-gray-600">A: </span>
-                                    <span className="font-medium">
-                                      {convertirValueALabel(mov.traslado)}
-                                    </span>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </>
-                ) : (
-                  <div className="text-center py-4">
-                    <div className="text-gray-400 text-3xl mb-2">📭</div>
-                    <p className="text-gray-600">
-                      No hay movimientos registrados para esta máquina
-                    </p>
-                    <p className="text-sm text-gray-500 mt-1">
-                      Será el primer movimiento registrado
-                    </p>
-                  </div>
-                )}
-              </div>
-            )}
 
             <Row gutter={16} className="mt-4">
               <Col xs={24} md={12}>
@@ -804,6 +669,149 @@ const validateFechaSolicitud = (fechaS: string) => {
     </Col>
 </Row>
           </div>
+
+          <Row gutter={16} className="p-6 border-b border-gray-200"> 
+            <Col xs={24} md={12}>
+                <div className="mb-4">
+                  <label className="font-bold text-gray-700 mb-2 block">
+                    Detalles de la Máquina *
+                  </label>
+                  <Controller
+                    name="movimiento"
+                    control={control}
+                    render={({ field }) => (
+                      <div className="relative">
+                        <Input
+                          value={field.value || ""}
+                          readOnly
+                          className="border-2 border-gray-300 rounded-lg bg-gray-50 text-gray-700 cursor-not-allowed transition-all pr-10"
+                          placeholder="Seleccione una máquina primero..."
+                        />
+                        <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+                          📋
+                        </div>
+                      </div>
+                    )}
+                  />
+                  
+                  {selectedMaquinariaInfo && (
+                    <div className="mt-2 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                      <div className="text-sm text-blue-700 space-y-1">
+                        <div className="font-medium mb-1">Detalles que se guardarán:</div>
+                        {detallesCompletos.split(" | ").map((detalle, index) => (
+                          <div key={index} className="flex items-start">
+                            <span className="text-blue-500 mr-2">•</span>
+                            <span>{detalle}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+            </Col>
+            <Col xs={24} md={12}>
+             {/* Historial de la máquina */}
+            {selectedMaquinaria && (
+              <div className="mt-6 mb-6 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-200">
+                {loadingHistorial ? (
+                  <div className="flex items-center justify-center py-4">
+                    <Loader size="sm" />
+                    <span className="ml-2 text-gray-600">
+                      Cargando histórico...
+                    </span>
+                  </div>
+                ) : historialMaquinaria.length > 0 ? (
+                  <>
+                    <h5 className="font-bold text-gray-800 mb-3 flex items-center gap-2">
+                      <span className="text-blue-600">📋</span>
+                      Historial de Ubicaciones - {selectedMaquinaria}
+                      <Tag color="blue" className="ml-2">
+                        {historialMaquinaria.length} movimientos
+                      </Tag>
+                    </h5>
+
+                    <div className="space-y-4">
+                      <div className="bg-white p-4 rounded-lg border">
+                        <h6 className="font-bold text-gray-700 mb-2">📊 Resumen</h6>
+                        <div className="space-y-2">
+                          <div className="flex justify-between">
+                            <span className="text-gray-600">Origen actual:</span>
+                            <span className="font-medium">
+                              {convertirValueALabel(watch("origen"))}
+                            </span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-gray-600">Origen frecuente:</span>
+                            <span className="font-medium">
+                              {getLugarMasFrecuente(historialMaquinaria, "origen")}
+                            </span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-gray-600">Destino frecuente:</span>
+                            <span className="font-medium">
+                              {getLugarMasFrecuente(historialMaquinaria, "traslado")}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div>
+                        <h6 className="font-bold text-gray-700 mb-2">
+                          🕐 Últimos Movimientos
+                        </h6>
+                        <div className="space-y-2">
+                          {historialMaquinaria.slice(0, 5).map((mov, index) => (
+                            <div
+                              key={mov.id}
+                              className="bg-white p-3 rounded-lg border border-gray-200"
+                            >
+                              <div className="flex justify-between items-start">
+                                <div>
+                                  <div className="flex items-center gap-2 mb-1">
+                                    <span className="text-sm text-gray-500">
+                                      {new Date(mov.createdAt).toLocaleDateString("es-ES")}
+                                    </span>
+                                    <Tag size="sm" color="cyan">
+                                      Mov #{historialMaquinaria.length - index}
+                                    </Tag>
+                                  </div>
+                                  <div className="text-sm">
+                                    <span className="text-gray-600">De: </span>
+                                    <span className="font-medium">
+                                      {convertirValueALabel(mov.origen)}
+                                    </span>
+                                    <span className="mx-2 text-gray-400">→</span>
+                                    <span className="text-gray-600">A: </span>
+                                    <span className="font-medium">
+                                      {convertirValueALabel(mov.traslado)}
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <div className="text-center py-4">
+                    <div className="text-gray-400 text-3xl mb-2">📭</div>
+                    <p className="text-gray-600">
+                      No hay movimientos registrados para esta máquina
+                    </p>
+                    <p className="text-sm text-gray-500 mt-1">
+                      Será el primer movimiento registrado
+                    </p>
+                  </div>
+                )}
+              </div>
+            )}
+            </Col>
+
+          </Row>
+
+
 
           <div className="p-6 bg-gray-50 border-t border-gray-200 flex justify-end gap-4">
             <Button

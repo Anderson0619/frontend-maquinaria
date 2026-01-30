@@ -159,16 +159,69 @@ const CreateOrUpdateMaquinaria = ({ maquinaria }: IEditMaquinariaProps) => {
     ];
 
     const tipoOptions = [
-        { label: "Volqueta", value: "1", color: "bg-orange-100 text-orange-800" },
-        { label: "Minicargadora", value: "2", color: "bg-blue-100 text-blue-800" },
-        { label: "Draga", value: "3", color: "bg-cyan-100 text-cyan-800" },
-        { label: "Aplanadora o Compactadora", value: "4", color: "bg-red-100 text-red-800" },
-        { label: "Excavadora", value: "5", color: "bg-green-100 text-green-800" },
-        { label: "Retroexcavadora", value: "6", color: "bg-purple-100 text-purple-800" },
-        { label: "Bulldozer", value: "7", color: "bg-yellow-100 text-yellow-800" },
-        { label: "Grúa", value: "8", color: "bg-gray-100 text-gray-800" },
-        { label: "Pavimentadora", value: "9", color: "bg-pink-100 text-pink-800" },
-    ];
+    { label: "MOTONIVELADORAS", value: "MV", color: "bg-orange-100 text-orange-800" },
+    { label: "MINICARGADORAS", value: "MC", color: "bg-blue-100 text-blue-800" },
+    { label: "TRACTORES", value: "TO", color: "bg-cyan-100 text-cyan-800" },
+    { label: "EXCAVADORAS", value: "EX", color: "bg-red-100 text-red-800" },
+    { label: "RETROEXCAVADORAS", value: "RX", color: "bg-green-100 text-green-800" },
+    { label: "RODILLOS", value: "RC", color: "bg-purple-100 text-purple-800" },
+    { label: "CARGADORA FRONTAL", value: "CF", color: "bg-yellow-100 text-yellow-800" },
+    { label: "FINISHER", value: "TA", color: "bg-gray-100 text-gray-800" },
+    { label: "MONTACARGA", value: "MG", color: "bg-pink-100 text-pink-800" },
+    { label: "PLANTA LUZ", value: "PL", color: "bg-indigo-100 text-indigo-800" },
+    { label: "GRAVILLADORA", value: "GV", color: "bg-teal-100 text-teal-800" },
+    { label: "TRITURADORA", value: "TP", color: "bg-rose-100 text-rose-800" },
+    { label: "ZARANDA", value: "CP", color: "bg-amber-100 text-amber-800" },
+    { label: "TELEHANDER", value: "TH", color: "bg-emerald-100 text-emerald-800" },
+    { label: "BOMBA DE HORMIGON", value: "BH", color: "bg-violet-100 text-violet-800" },
+    { label: "GRUA", value: "CG", color: "bg-fuchsia-100 text-fuchsia-800" },
+    { label: "FESADORAS", value: "RA", color: "bg-sky-100 text-sky-800" },
+    { label: "GENERADORES", value: "GN", color: "bg-lime-100 text-lime-800" },
+    { label: "DRILL", value: "DR", color: "bg-rose-100 text-rose-800" },
+    { label: "BARREDORA MÉCANICA", value: "BM", color: "bg-amber-100 text-amber-800" },
+    { label: "PAVIMENTADORA DE HORMIGON", value: "PV", color: "bg-emerald-100 text-emerald-800" },
+    { label: "PLANTA DE ASFALTO", value: "PA", color: "bg-violet-100 text-violet-800" },
+    { label: "PLANTA DE HORMIGON", value: "PH", color: "bg-fuchsia-100 text-fuchsia-800" },
+    { label: "SAPITOS COMPACTADORES", value: "03", color: "bg-sky-100 text-sky-800" },
+    { label: "COMPRESOR MOTOR", value: "04", color: "bg-lime-100 text-lime-800" },
+    { label: "PLANCHAS COMPACTADORA", value: "05", color: "bg-orange-100 text-orange-800" },
+    { label: "COMPRESOR DE AIRE PEQUEÑO", value: "06", color: "bg-blue-100 text-blue-800" },
+    { label: "BOMBA DE ENGRASAR / ACEITE", value: "07", color: "bg-cyan-100 text-cyan-800" },
+    { label: "CONCRETERA", value: "09", color: "bg-red-100 text-red-800" },
+    { label: "RODILLO DOBLE TAMBOR PEQUEÑO", value: "10", color: "bg-green-100 text-green-800" },
+    { label: "CORTADORA DE CONCRETO", value: "11", color: "bg-purple-100 text-purple-800" },
+    { label: "SOPLADOR DE AIRE", value: "12", color: "bg-yellow-100 text-yellow-800" },
+    { label: "ENGRASADORA DE PIE", value: "13", color: "bg-gray-100 text-gray-800" },
+    { label: "BOMBA DE AGUA", value: "14", color: "bg-pink-100 text-pink-800" },
+    { label: "LAVADORA MOVIL", value: "15", color: "bg-indigo-100 text-indigo-800" },
+    { label: "VIBRADOR DE CONCRETO", value: "16", color: "bg-teal-100 text-teal-800" },
+    { label: "PULIDORA", value: "17", color: "bg-rose-100 text-rose-800" },
+    { label: "PLANTA ELECTRICA", value: "18", color: "bg-amber-100 text-amber-800" },
+    { label: "CORTADORA DE CESPED", value: "19", color: "bg-emerald-100 text-emerald-800" },
+    { label: "BOMBA SUMERGIBLE", value: "20", color: "bg-violet-100 text-violet-800" },
+    { label: "MOTOSOLDADORA", value: "21", color: "bg-fuchsia-100 text-fuchsia-800" },
+    { label: "EXTRACTOR DE NÚCLEO", value: "22", color: "bg-sky-100 text-sky-800" },
+    { label: "ROTO MARTILLO MANUAL", value: "RT", color: "bg-lime-100 text-lime-800" },
+    { label: "COMPRESOR DE AIRE GRANDE", value: "CA", color: "bg-orange-100 text-orange-800" },
+    { label: "DISTRIBUIDOR DE AGREGADOS-CHANCHITO", value: "CE", color: "bg-blue-100 text-blue-800" },
+    { label: "BOMBA DE COMBUSTIBLE", value: "BC", color: "bg-cyan-100 text-cyan-800" },
+    { label: "MIXER", value: "MX", color: "bg-red-100 text-red-800" },
+    { label: "VOLQUETE", value: "02", color: "bg-green-100 text-green-800" },
+    { label: "TANQUERO", value: "TQ", color: "bg-purple-100 text-purple-800" },
+    { label: "JEEP", value: "JP", color: "bg-yellow-100 text-yellow-800" },
+    { label: "CAMIONETAS", value: "08", color: "bg-gray-100 text-gray-800" },
+    { label: "ESPARCIDOR ASFALTO", value: "EA", color: "bg-pink-100 text-pink-800" },
+    { label: "CABEZAL", value: "01", color: "bg-indigo-100 text-indigo-800" },
+    { label: "CABEZAL TLP", value: "TL", color: "bg-teal-100 text-teal-800" },
+    { label: "BAÑERAS", value: "BÑ", color: "bg-rose-100 text-rose-800" },
+    { label: "PLATAFORMAS", value: "PLT", color: "bg-amber-100 text-amber-800" },
+    { label: "CAMA BAJA", value: "CB", color: "bg-emerald-100 text-emerald-800" },
+    { label: "CONTENEDORES", value: "CT", color: "bg-violet-100 text-violet-800" },
+    { label: "CHASIS", value: "CH", color: "bg-fuchsia-100 text-fuchsia-800" },
+    { label: "CISTERNA DE CEMENTO (VACA)", value: "CC", color: "bg-sky-100 text-sky-800" },
+    { label: "TANQUE DE ASFALTO", value: "TA", color: "bg-lime-100 text-lime-800" },
+    { label: "TANQUERO DE COMBUSTIBLE", value: "TQC", color: "bg-orange-100 text-orange-800" },
+];
 
     return (
         <div className="p-4 md:p-6 bg-gradient-to-br from-indigo-50 to-purple-50 min-h-screen">
@@ -211,7 +264,7 @@ const CreateOrUpdateMaquinaria = ({ maquinaria }: IEditMaquinariaProps) => {
                             <Col xs={24} md={8}>
                                 <div className="mb-4">
                                     <label className="font-bold text-gray-700 mb-2 block">
-                                        Número de Maquinaria *
+                                        ID de Maquinaria *
                                         {!isEditMode && (
                                             <span className="ml-2 text-xs text-indigo-600 bg-indigo-100 px-2 py-1 rounded-full">
                                                 Único
@@ -264,7 +317,7 @@ const CreateOrUpdateMaquinaria = ({ maquinaria }: IEditMaquinariaProps) => {
                                                 {...field}
                                                 data={tipoOptions.map(opt => ({
                                                     label: (
-                                                        <span className={`px-2 py-1 rounded ${opt.color} text-sm font-medium`}>
+                                                        <span className={`px-2 py-1 rounded  text-sm font-medium`}>
                                                             {opt.label}
                                                         </span>
                                                     ),
@@ -296,15 +349,16 @@ const CreateOrUpdateMaquinaria = ({ maquinaria }: IEditMaquinariaProps) => {
                             <Col xs={24} md={8}>
                                 <div className="mb-4">
                                     <label className="font-bold text-gray-700 mb-2 block">
-                                        Estado *
+                                        Estado {isEditMode && "*"}
                                     </label>
                                     <Controller
                                         name="estado"
                                         control={control}
-                                        rules={{ required: "Este campo es requerido" }}
+                                        rules={{ required: isEditMode ? "Este campo es requerido" : false }}
                                         render={({ field }) => (
                                             <SelectPicker
                                                 {...field}
+                                                disabled={!isEditMode} // Se deshabilita si no está en modo edición
                                                 data={estadoOptions.map(opt => ({
                                                     label: (
                                                         <span className={`px-2 py-1 rounded ${opt.color} text-sm font-medium`}>
@@ -315,13 +369,21 @@ const CreateOrUpdateMaquinaria = ({ maquinaria }: IEditMaquinariaProps) => {
                                                 }))}
                                                 block
                                                 searchable={false}
-                                                placeholder="Seleccione el estado"
+                                                placeholder={isEditMode ? "Seleccione el estado" : "Disponible al editar"}
                                                 menuClassName="shadow-lg border-0 rounded-lg"
-                                                className={`border-2 ${errors.estado ? 'border-red-500' : 'border-gray-300'} rounded-lg hover:border-indigo-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all`}
+                                                className={`border-2 ${errors.estado ? 'border-red-500' : 'border-gray-300'} rounded-lg hover:border-indigo-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all ${!isEditMode ? 'bg-gray-100 cursor-not-allowed' : ''}`}
                                                 renderValue={(value, item) => {
+                                                    if (!isEditMode && !value) {
+                                                        return (
+                                                            <span className="px-3 py-1 rounded text-gray-500 font-medium">
+                                                                Disponible al editar
+                                                            </span>
+                                                        );
+                                                    }
+                                                    
                                                     const selectedOption = estadoOptions.find(opt => opt.value === value);
                                                     return (
-                                                        <span className={`px-3 py-1 rounded ${selectedOption?.color} font-medium`}>
+                                                        <span className={`px-3 py-1 rounded ${selectedOption?.color || 'bg-gray-100'} font-medium`}>
                                                             {value || "Seleccionar"}
                                                         </span>
                                                     );
@@ -329,9 +391,9 @@ const CreateOrUpdateMaquinaria = ({ maquinaria }: IEditMaquinariaProps) => {
                                             />
                                         )}
                                     />
-                                    {errors.type && (
+                                    {errors.estado && (
                                         <div className="mt-2 text-red-600 text-sm bg-red-50 p-2 rounded-lg">
-                                            {errors.type.message}
+                                            {errors.estado.message}
                                         </div>
                                     )}
                                 </div>
